@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_customer_graph"
+    app:startDestination="@id/customerHomeFragment">
+
+    <fragment
+        android:id="@+id/customerHomeFragment"
+        android:name="com.mastercoding.gp.customer.ui.CustomerHomeFragment"
+        android:label="CustomerHomeFragment"
+        tools:layout="@layout/fragment_customer_home">
+        <action
+            android:id="@+id/action_customerHomeFragment_to_customerProfileFragment"
+            app:destination="@id/customerProfileFragment" />
+        <action
+            android:id="@+id/action_customerHomeFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_customerHomeFragment_to_customerTermsFragment"
+            app:destination="@id/customerTermsFragment" />
+        <action
+            android:id="@+id/action_customerHomeFragment_to_customerNotificationFragment"
+            app:destination="@id/customerNotificationFragment" />
+        <action
+            android:id="@+id/action_customerHomeFragment_to_maintenanceServicesFragment"
+            app:destination="@id/maintenanceServicesFragment" />
+        <action
+            android:id="@+id/action_customerHomeFragment_to_cleaningServicesFragment"
+            app:destination="@id/cleaningServicesFragment" />
+        <action
+            android:id="@+id/action_customerHomeFragment_to_packagesServicesFragment"
+            app:destination="@id/packagesServicesFragment" />
+        <action
+            android:id="@+id/action_customerHomeFragment_to_takeAwayServicesFragment"
+            app:destination="@id/takeAwayServicesFragment" />
+        <action
+            android:id="@+id/action_customerHomeFragment_to_serviceDetailsFragment"
+            app:destination="@id/serviceDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerProfileFragment"
+        android:name="com.mastercoding.gp.customer.ui.CustomerProfileFragment"
+        android:label="fragment_customer_profile"
+        tools:layout="@layout/fragment_customer_profile" >
+        <action
+            android:id="@+id/action_customerProfileFragment_to_customerEditProfileFragment"
+            app:destination="@id/customerEditProfileFragment" />
+        <action
+            android:id="@+id/action_customerProfileFragment_to_customerEditCarFragment"
+            app:destination="@id/customerEditCarFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerEditProfileFragment"
+        android:name="com.mastercoding.gp.customer.ui.CustomerEditProfileFragment"
+        android:label="fragment_customer_edit_profile"
+        tools:layout="@layout/fragment_customer_edit_profile" >
+        <action
+            android:id="@+id/action_customerEditProfileFragment_to_customerHomeFragment"
+            app:destination="@id/customerHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.mastercoding.gp.customer.ui.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/customerTermsFragment"
+        android:name="com.mastercoding.gp.customer.ui.CustomerTermsFragment"
+        android:label="fragment_customer_terms"
+        tools:layout="@layout/fragment_customer_terms" />
+    <fragment
+        android:id="@+id/customerNotificationFragment"
+        android:name="com.mastercoding.gp.customer.ui.CustomerNotificationFragment"
+        android:label="fragment_customer_notification"
+        tools:layout="@layout/fragment_customer_notification" />
+    <fragment
+        android:id="@+id/maintenanceServicesFragment"
+        android:name="com.mastercoding.gp.customer.ui.MaintenanceServicesFragment"
+        android:label="MaintenanceServicesFragment"
+        tools:layout="@layout/fragment_maintenance_services"/>
+    <fragment
+        android:id="@+id/cleaningServicesFragment"
+        android:name="com.mastercoding.gp.customer.ui.CleaningServicesFragment"
+        android:label="CleaningServicesFragment"
+        tools:layout="@layout/fragment_cleaning_services"/>
+    <fragment
+        android:id="@+id/packagesServicesFragment"
+        android:name="com.mastercoding.gp.customer.ui.PackagesServicesFragment"
+        android:label="PackagesServicesFragment"
+        tools:layout="@layout/fragment_packages_services"/>
+    <fragment
+        android:id="@+id/takeAwayServicesFragment"
+        android:name="com.mastercoding.gp.customer.ui.TakeAwayServicesFragment"
+        android:label="TakeAwayServicesFragment"
+        tools:layout="@layout/fragment_take_away_services"/>
+    <fragment
+        android:id="@+id/customerEditCarFragment"
+        android:name="com.mastercoding.gp.customer.ui.CustomerEditCarFragment"
+        android:label="fragment_customer_edit_car"
+        tools:layout="@layout/fragment_customer_edit_car" />
+    <fragment
+        android:id="@+id/serviceDetailsFragment"
+        android:name="com.mastercoding.gp.customer.ui.ServiceDetailsFragment"
+        android:label="fragment_service_details"
+        tools:layout="@layout/fragment_service_details">
+        <argument
+            android:name="serviceId"
+            app:argType="integer" />
+    </fragment>
+</navigation>

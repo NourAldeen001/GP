@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/service_detail_back"
+        tools:context=".customer.ui.CustomerEditCarFragment">
+
+        <ImageButton
+            android:id="@+id/custom_profile_edit_back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="43dp"
+            android:layout_marginStart="17dp"
+            android:background="@color/white"
+            android:src="@drawable/back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/custom_edit_car_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="43dp"
+            android:layout_marginEnd="17dp"
+            android:text="My Car"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/custom_edit_car_fixed_plate_num_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="17dp"
+            android:text="Plate Number"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_profile_edit_back_btn" />
+
+        <EditText
+            android:id="@+id/custom_edit_car_plate_num_edtxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/edit_text_back_2"
+            android:paddingHorizontal="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_edit_car_fixed_plate_num_txt" />
+
+
+        <TextView
+            android:id="@+id/custom_edit_car_fixed_type_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="17dp"
+            android:text="Car Type"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_edit_car_plate_num_edtxt" />
+
+        <Spinner
+            android:id="@+id/custom_edit_car_type_dropList"
+            android:layout_width="350dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="12dp"
+            android:paddingHorizontal="10dp"
+            android:background="@drawable/back_spinner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_edit_car_fixed_type_txt" />
+
+
+        <TextView
+            android:id="@+id/custom_edit_car_fixed_model_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="17dp"
+            android:text="Car Model"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_edit_car_type_dropList" />
+
+        <EditText
+            android:id="@+id/custom_edit_car_model_edtxt"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/edit_text_back_2"
+            android:paddingHorizontal="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_edit_car_fixed_model_txt" />
+
+
+        <Button
+            android:id="@+id/custom_edit_car_add_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_back"
+            android:text="Add Car"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_edit_car_model_edtxt" />
+
+        <Button
+            android:id="@+id/custom_edit_car_update_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="56dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_back"
+            android:text="Update Car"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_edit_car_model_edtxt" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

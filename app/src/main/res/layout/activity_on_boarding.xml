@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".OnBoardingActivity">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RelativeLayout
+            android:id="@+id/relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:layout_constraintBottom_toBottomOf="@+id/slider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/lets_started_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@id/next_btn"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="40dp"
+                android:layout_marginStart="50dp"
+                android:background="@color/colorPrimary"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/lets_get_started"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/dots_layout"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"/>
+
+            <Button
+                android:id="@+id/next_btn"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:paddingBottom="30dp"
+                android:drawableEnd="@drawable/navigate_next1"
+                android:drawableTint="@color/white"
+                android:fontFamily="@font/poppins_black"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"/>
+
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        tools:openDrawer="start"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".customer.CustomerActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                app:menu="@menu/toolbar_menu"
+                app:navigationIcon="@drawable/menu_hamburger"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/nav_host_fragment_customer"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/toolbar"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/nav_customer_graph" />
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.bottomappbar.BottomAppBar
+                    android:id="@+id/bottonAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_gravity="bottom"
+                    app:backgroundTint="@color/black">
+
+                    <com.google.android.material.bottomnavigation.BottomNavigationView
+                        android:id="@+id/bottomNavigation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:itemIconTint="@color/white"
+                        app:labelVisibilityMode="labeled"
+                        app:menu="@menu/bottom_navigation_menu"
+                        app:backgroundTint="@android:color/transparent"
+                        app:itemActiveIndicatorStyle="@style/App.Custom.BottomIndicator"
+                        android:fitsSystemWindows="true"/>
+
+                </com.google.android.material.bottomappbar.BottomAppBar>
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        </RelativeLayout>
+
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_drawer"
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/header_layout"
+            app:menu="@menu/navigation_drawer"
+            app:itemTextColor="@color/black"
+            app:itemIconTint="@color/black"
+            app:itemIconSize="18dp"
+            app:itemRippleColor="@color/colorPrimary"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>
