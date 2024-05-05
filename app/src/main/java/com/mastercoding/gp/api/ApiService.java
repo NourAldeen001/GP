@@ -9,6 +9,7 @@ import com.mastercoding.gp.customer.data.CustomerCarDataBody;
 import com.mastercoding.gp.customer.data.CustomerData;
 import com.mastercoding.gp.customer.data.CustomerProfileBody;
 import com.mastercoding.gp.customer.data.DeleteCarResponse;
+import com.mastercoding.gp.customer.data.Package;
 import com.mastercoding.gp.customer.data.Service;
 
 import java.util.List;
@@ -62,6 +63,11 @@ public interface ApiService {
 
     @GET("customers/get-all-take-away-services")
     Call<List<Service>> getAllTakeAwayServices(@Header("Authorization") String authHeader);
+
+    // Packages For Customers
+
+    @GET("customers/get-all-packages")
+    Call<List<Package>> getAllPackages(@Header("Authorization") String authHeader);
 
 
 
