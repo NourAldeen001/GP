@@ -26,18 +26,24 @@ import com.mastercoding.gp.customer.adapter.TakeAwayServiceAdapter;
 import com.mastercoding.gp.customer.data.ImageService;
 import com.mastercoding.gp.customer.data.Service;
 import com.mastercoding.gp.customer.ui.viewmodel.GetAllCleaningServicesViewModel;
+import com.mastercoding.gp.customer.ui.viewmodel.GetAllMaintenanceServicesViewModel;
+import com.mastercoding.gp.customer.ui.viewmodel.GetAllTakeAwayServicesViewModel;
 import com.mastercoding.gp.databinding.FragmentCustomerHomeBinding;
 
 import java.util.List;
 
 
-public class CustomerHomeFragment extends Fragment implements CleanServiceAdapter.OnCleanItemClickListener {
+public class CustomerHomeFragment extends Fragment implements CleanServiceAdapter.OnCleanItemClickListener,
+                                                              MaintenServiceAdapter.OnMaintenItemClickListener,
+                                                              TakeAwayServiceAdapter.OnTakeAwayItemClickListener{
 
     FragmentCustomerHomeBinding binding;
 
     GetAllCleaningServicesViewModel getAllCleaningServicesViewModel;
     CleanServiceAdapter cleanServiceAdapter;
+    GetAllMaintenanceServicesViewModel getAllMaintenanceServicesViewModel;
     MaintenServiceAdapter maintenServiceAdapter;
+    GetAllTakeAwayServicesViewModel getAllTakeAwayServicesViewModel;
     TakeAwayServiceAdapter takeAwayServiceAdapter;
 
     SessionSharedPreferences sessionSharedPreferences;
@@ -62,6 +68,10 @@ public class CustomerHomeFragment extends Fragment implements CleanServiceAdapte
 
         getAllCleaningServicesViewModel = new ViewModelProvider(this).get(GetAllCleaningServicesViewModel.class);
 
+        getAllMaintenanceServicesViewModel = new ViewModelProvider(this).get(GetAllMaintenanceServicesViewModel.class);
+
+        getAllTakeAwayServicesViewModel = new ViewModelProvider(this).get(GetAllTakeAwayServicesViewModel.class);
+
         userName = sessionSharedPreferences.getUsername();
         password = sessionSharedPreferences.getPass();
 
@@ -81,10 +91,25 @@ public class CustomerHomeFragment extends Fragment implements CleanServiceAdapte
         });
 
 
-//        cleanServiceAdapter = new CleanServiceAdapter()
-//
-//        binding.cleanRecyclerView.setAdapter();
+        getAllMaintenanceServicesViewModel.getAllMaintenanceServices(authHeader).observe(getViewLifecycleOwner(), new Observer<List<Service>>() {
+            @Override
+            public void onChanged(List<Service> services) {
+                maintenServiceAdapter = new MaintenServiceAdapter(services);
+                maintenServiceAdapter.setOnMaintenItemClickListener(CustomerHomeFragment.this);
+                binding.maintenRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext(), LinearLayoutManager.HORIZONTAL, false));
+                binding.maintenRecyclerView.setAdapter(maintenServiceAdapter);
+            }
+        });
 
+        getAllTakeAwayServicesViewModel.getAllTakeAwayServices(authHeader).observe(getViewLifecycleOwner(), new Observer<List<Service>>() {
+            @Override
+            public void onChanged(List<Service> services) {
+                takeAwayServiceAdapter = new TakeAwayServiceAdapter(services);
+                takeAwayServiceAdapter.setOnTakeAwayItemClickListener(CustomerHomeFragment.this);
+                binding.takeAwayRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext(), LinearLayoutManager.HORIZONTAL, false));
+                binding.takeAwayRecyclerView.setAdapter(takeAwayServiceAdapter);
+            }
+        });
 
         binding.maintenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +165,16 @@ public class CustomerHomeFragment extends Fragment implements CleanServiceAdapte
 
     @Override
     public void onCleanItemClick(int serviceId) {
+        navigateToServiceDetailsFragment(serviceId);
+    }
+
+    @Override
+    public void onMaintenItemClick(int serviceId) {
+        navigateToServiceDetailsFragment(serviceId);
+    }
+
+    @Override
+    public void onTakeAwayItemClick(int serviceId) {
         navigateToServiceDetailsFragment(serviceId);
     }
 }

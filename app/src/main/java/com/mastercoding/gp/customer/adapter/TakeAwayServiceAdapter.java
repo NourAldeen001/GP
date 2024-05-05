@@ -1,5 +1,8 @@
 package com.mastercoding.gp.customer.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,24 +11,26 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.mastercoding.gp.R;
 import com.mastercoding.gp.customer.ItemClickListener;
 import com.mastercoding.gp.customer.data.ImageService;
+import com.mastercoding.gp.customer.data.Service;
 
 import java.util.List;
 
 public class TakeAwayServiceAdapter extends RecyclerView.Adapter<TakeAwayServiceAdapter.TakeAwayServiceViewHolder> {
 
-    List<ImageService> images;
+    List<Service> services;
 
-    ItemClickListener clickListener;
+    OnTakeAwayItemClickListener onTakeAwayItemClickListener;
 
-    public void setClickListener(ItemClickListener clickListener) {
-        this.clickListener = clickListener;
+    public void setOnTakeAwayItemClickListener(OnTakeAwayItemClickListener onTakeAwayItemClickListener) {
+        this.onTakeAwayItemClickListener = onTakeAwayItemClickListener;
     }
 
-    public TakeAwayServiceAdapter(List<ImageService> images) {
-        this.images = images;
+    public TakeAwayServiceAdapter(List<Service> services) {
+        this.services = services;
     }
 
     @NonNull
@@ -38,13 +43,17 @@ public class TakeAwayServiceAdapter extends RecyclerView.Adapter<TakeAwayService
 
     @Override
     public void onBindViewHolder(@NonNull TakeAwayServiceViewHolder holder, int position) {
-        ImageService imageService = images.get(position);
-        holder.imageView.setImageResource(imageService.getImage());
+        Service service = services.get(position);
+        Glide.with(holder.itemView.getContext()).load(convertBase64ToBitmap(service.getImage())).into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return images.size();
+        return services.size();
+    }
+
+    public interface OnTakeAwayItemClickListener {
+        void onTakeAwayItemClick(int serviceId);
     }
 
     class TakeAwayServiceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -57,10 +66,18 @@ public class TakeAwayServiceAdapter extends RecyclerView.Adapter<TakeAwayService
 
         @Override
         public void onClick(View view) {
-            if(clickListener != null){
-                clickListener.onClick(images.get(getLayoutPosition()));
+            if(onTakeAwayItemClickListener != null){
+                int position = getAdapterPosition();
+                if(position != RecyclerView.NO_POSITION){
+                    onTakeAwayItemClickListener.onTakeAwayItemClick(services.get(position).getId());
+                }
             }
         }
+    }
+
+    private Bitmap convertBase64ToBitmap(String b64) {
+        byte[] imageAsBytes = Base64.decode(b64.getBytes(), Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
     }
 }
 
