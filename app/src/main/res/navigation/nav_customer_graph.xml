@@ -98,8 +98,8 @@
         android:label="PackagesServicesFragment"
         tools:layout="@layout/fragment_packages_services">
         <action
-            android:id="@+id/action_packagesServicesFragment_to_serviceDetailsFragment"
-            app:destination="@id/serviceDetailsFragment" />
+            android:id="@+id/action_packagesServicesFragment_to_packageDetailsFragment"
+            app:destination="@id/packageDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/takeAwayServicesFragment"
@@ -122,6 +122,16 @@
         tools:layout="@layout/fragment_service_details">
         <argument
             android:name="serviceId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/packageDetailsFragment"
+        android:name="com.mastercoding.gp.customer.ui.PackageDetailsFragment"
+        android:label="fragment_package_details"
+        tools:layout="@layout/fragment_package_details">
+        <argument
+            android:name="packageId"
             app:argType="integer" />
     </fragment>
 </navigation>
