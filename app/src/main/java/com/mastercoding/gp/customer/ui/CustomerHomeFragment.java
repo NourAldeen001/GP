@@ -114,42 +114,42 @@ public class CustomerHomeFragment extends Fragment implements CleanServiceAdapte
         binding.maintenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Navigation.findNavController(view).navigate(R.id.action_customerHomeFragment_to_maintenanceServicesFragment);
             }
         });
 
         binding.cleanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Navigation.findNavController(view).navigate(R.id.action_customerHomeFragment_to_cleaningServicesFragment);
             }
         });
 
         binding.packsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Navigation.findNavController(view).navigate(R.id.action_customerHomeFragment_to_packagesServicesFragment);
             }
         });
 
         binding.maintenViewAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Navigation.findNavController(view).navigate(R.id.action_customerHomeFragment_to_maintenanceServicesFragment);
             }
         });
 
         binding.cleanViewAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Navigation.findNavController(view).navigate(R.id.action_customerHomeFragment_to_cleaningServicesFragment);
             }
         });
 
         binding.takeAwayViewAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Navigation.findNavController(view).navigate(R.id.action_customerHomeFragment_to_takeAwayServicesFragment);
             }
         });
 
