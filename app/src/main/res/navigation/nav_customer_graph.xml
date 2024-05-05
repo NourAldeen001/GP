@@ -78,22 +78,38 @@
         android:id="@+id/maintenanceServicesFragment"
         android:name="com.mastercoding.gp.customer.ui.MaintenanceServicesFragment"
         android:label="MaintenanceServicesFragment"
-        tools:layout="@layout/fragment_maintenance_services"/>
+        tools:layout="@layout/fragment_maintenance_services">
+        <action
+            android:id="@+id/action_maintenanceServicesFragment_to_serviceDetailsFragment"
+            app:destination="@id/serviceDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cleaningServicesFragment"
         android:name="com.mastercoding.gp.customer.ui.CleaningServicesFragment"
         android:label="CleaningServicesFragment"
-        tools:layout="@layout/fragment_cleaning_services"/>
+        tools:layout="@layout/fragment_cleaning_services">
+        <action
+            android:id="@+id/action_cleaningServicesFragment_to_serviceDetailsFragment"
+            app:destination="@id/serviceDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/packagesServicesFragment"
         android:name="com.mastercoding.gp.customer.ui.PackagesServicesFragment"
         android:label="PackagesServicesFragment"
-        tools:layout="@layout/fragment_packages_services"/>
+        tools:layout="@layout/fragment_packages_services">
+        <action
+            android:id="@+id/action_packagesServicesFragment_to_serviceDetailsFragment"
+            app:destination="@id/serviceDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/takeAwayServicesFragment"
         android:name="com.mastercoding.gp.customer.ui.TakeAwayServicesFragment"
         android:label="TakeAwayServicesFragment"
-        tools:layout="@layout/fragment_take_away_services"/>
+        tools:layout="@layout/fragment_take_away_services">
+        <action
+            android:id="@+id/action_takeAwayServicesFragment_to_serviceDetailsFragment"
+            app:destination="@id/serviceDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/customerEditCarFragment"
         android:name="com.mastercoding.gp.customer.ui.CustomerEditCarFragment"
