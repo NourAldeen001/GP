@@ -4,6 +4,8 @@ import com.mastercoding.gp.auth.login.data.LoginBody;
 import com.mastercoding.gp.auth.login.data.LoginResponse;
 import com.mastercoding.gp.auth.signup.data.SignUpBody;
 import com.mastercoding.gp.auth.signup.data.SignUpResponse;
+import com.mastercoding.gp.customer.data.AddServiceToOrderListBody;
+import com.mastercoding.gp.customer.data.AddServiceToOrderListResponse;
 import com.mastercoding.gp.customer.data.CustomerCarData;
 import com.mastercoding.gp.customer.data.CustomerCarDataBody;
 import com.mastercoding.gp.customer.data.CustomerData;
@@ -69,6 +71,9 @@ public interface ApiService {
     //@HTTP(method = "get", path = "customers/get-service-by-id-and-branch-by-id", hasBody = true)
     @GET("customers/get-service-by-id-and-branch-by-id")
     Call<Service> getServiceByIdAndBranchId(@Query("serviceId") int serviceId, @Query("branchId") Long branchId, @Header("Authorization") String authHeader);
+
+    @PUT("customers/add-service-to-order-list")
+    Call<AddServiceToOrderListResponse> addServiceToOrderList(@Body AddServiceToOrderListBody addServiceToOrderListBody, @Header("Authorization") String authHeader);
 
     // Packages For Customers
 
