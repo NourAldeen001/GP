@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.mastercoding.gp.R;
 import com.mastercoding.gp.SessionSharedPreferences;
 import com.mastercoding.gp.customer.data.CustomerData;
 import com.mastercoding.gp.customer.data.Service;
@@ -36,9 +38,6 @@ public class ServiceDetailsFragment extends Fragment {
     String userName, password, base, authHeader;
 
     int serviceId;
-
-    Long branchId = 0L;
-
 
     public ServiceDetailsFragment() {
         // Required empty public constructor
@@ -70,66 +69,41 @@ public class ServiceDetailsFragment extends Fragment {
         customerByIdViewModel.getCustomerById(sessionSharedPreferences.getID(), authHeader).observe(getViewLifecycleOwner(), new Observer<CustomerData>() {
             @Override
             public void onChanged(CustomerData customerData) {
-                branchId = customerData.getCurrentBranchId();
-                Log.i("branchId: ", branchId + " I am Here");
 
-                if(branchId == null){
-                    getServiceByIdAndBranchByIdViewModel.getServiceByIdAndBranchId(serviceId, null, authHeader).observe(getViewLifecycleOwner(), new Observer<Service>() {
-                        @Override
-                        public void onChanged(Service service) {
-                            Glide.with(container.getContext()).load(convertBase64ToBitmap(service.getImage())).into(binding.serviceDetailsImg);
-                            binding.serviceDetailsNameTxt.setText(service.getName());
-                            binding.serviceDetailsDescTxt.setText(service.getDescription());
-                            binding.serviceDetailsPriceTxt.setText(service.getPrice());
-                            binding.serviceDetailsServiceTimeTxt.setText(service.getRequiredTime());
+                getServiceByIdAndBranchByIdViewModel.getServiceByIdAndBranchId(serviceId, customerData.getCurrentBranchId(), authHeader).observe(getViewLifecycleOwner(), new Observer<Service>() {
+                    @Override
+                    public void onChanged(Service service) {
+                        Glide.with(container.getContext()).load(convertBase64ToBitmap(service.getImage())).into(binding.serviceDetailsImg);
+                        binding.serviceDetailsNameTxt.setText(service.getName());
+                        binding.serviceDetailsDescTxt.setText(service.getDescription());
+                        binding.serviceDetailsPriceTxt.setText(service.getPrice());
+                        binding.serviceDetailsServiceTimeTxt.setText(service.getRequiredTime());
 
+                        if(service.getAvailableInBranch() == null){
                             binding.serviceDetailsAvailableTxt.setText("");
-
-                            switch (service.getServiceCategory()) {
-                                case "CLEANING_SERVICE":
-                                    binding.serviceDetailsTitle.setText("Cleaning Service");
-                                    break;
-                                case "TAKE_AWAY_SERVICE":
-                                    binding.serviceDetailsTitle.setText("Take Away Service");
-                                    break;
-                                case "MAINTENANCE_SERVICE":
-                                    binding.serviceDetailsTitle.setText("Maintenance Service");
-                                    break;
-                            }
                         }
-                    });
-                }
-                else {
-                    getServiceByIdAndBranchByIdViewModel.getServiceByIdAndBranchId(serviceId, branchId, authHeader).observe(getViewLifecycleOwner(), new Observer<Service>() {
-                        @Override
-                        public void onChanged(Service service) {
-                            Glide.with(container.getContext()).load(convertBase64ToBitmap(service.getImage())).into(binding.serviceDetailsImg);
-                            binding.serviceDetailsNameTxt.setText(service.getName());
-                            binding.serviceDetailsDescTxt.setText(service.getDescription());
-                            binding.serviceDetailsPriceTxt.setText(service.getPrice());
-                            binding.serviceDetailsServiceTimeTxt.setText(service.getRequiredTime());
-
-                            if(service.getAvailableInBranch()) {
-                                binding.serviceDetailsAvailableTxt.setText("Yes");
-                            }
-                            else {
-                                binding.serviceDetailsAvailableTxt.setText("No");
-                            }
-
-                            switch (service.getServiceCategory()) {
-                                case "CLEANING_SERVICE":
-                                    binding.serviceDetailsTitle.setText("Cleaning Service");
-                                    break;
-                                case "TAKE_AWAY_SERVICE":
-                                    binding.serviceDetailsTitle.setText("Take Away Service");
-                                    break;
-                                case "MAINTENANCE_SERVICE":
-                                    binding.serviceDetailsTitle.setText("Maintenance Service");
-                                    break;
-                            }
+                        else if(service.getAvailableInBranch()) {
+                            binding.serviceDetailsAvailableTxt.setTextColor(ContextCompat.getColor(getContext(), R.color.green));
+                            binding.serviceDetailsAvailableTxt.setText("Yes");
                         }
-                    });
-                }
+                        else {
+                            binding.serviceDetailsAvailableTxt.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+                            binding.serviceDetailsAvailableTxt.setText("No");
+                        }
+
+                        switch (service.getServiceCategory()) {
+                            case "CLEANING_SERVICE":
+                                binding.serviceDetailsTitle.setText("Cleaning Service");
+                                break;
+                            case "TAKE_AWAY_SERVICE":
+                                binding.serviceDetailsTitle.setText("Take Away Service");
+                                break;
+                            case "MAINTENANCE_SERVICE":
+                                binding.serviceDetailsTitle.setText("Maintenance Service");
+                                break;
+                        }
+                    }
+                });
             }
         });
 

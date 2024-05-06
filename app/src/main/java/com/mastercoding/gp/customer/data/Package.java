@@ -31,7 +31,7 @@ public class Package {
 
     @SerializedName("availableInBranch")
     @Expose
-    private String availableInBranch;
+    private Boolean availableInBranch;
 
     public Package() {
     }
@@ -84,11 +84,11 @@ public class Package {
         this.currentPackagePrice = currentPackagePrice;
     }
 
-    public String getAvailableInBranch() {
+    public Boolean getAvailableInBranch() {
         return availableInBranch;
     }
 
-    public void setAvailableInBranch(String availableInBranch) {
+    public void setAvailableInBranch(Boolean availableInBranch) {
         this.availableInBranch = availableInBranch;
     }
 }

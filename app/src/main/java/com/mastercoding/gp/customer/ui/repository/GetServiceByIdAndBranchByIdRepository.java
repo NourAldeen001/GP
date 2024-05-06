@@ -17,7 +17,7 @@ public class GetServiceByIdAndBranchByIdRepository {
 
     ApiService apiService;
 
-    MutableLiveData<Service> serviceByIdAndBranchIdMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<Service> serviceByIdAndBranchIdMutableLiveData = new MutableLiveData<>();
 
     public GetServiceByIdAndBranchByIdRepository() {
         this.apiService = RetrofitInstance.getRetrofitInstance().create(ApiService.class);

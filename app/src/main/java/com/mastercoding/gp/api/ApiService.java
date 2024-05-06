@@ -75,6 +75,9 @@ public interface ApiService {
     @GET("customers/get-all-packages")
     Call<List<Package>> getAllPackages(@Header("Authorization") String authHeader);
 
+    @GET("customers/get-package-by-id-and-branch-by-id")
+    Call<Package> getPackageByIdAndBranchId(@Query("packageId") int packageId, @Query("branchId") Long branchId, @Header("Authorization") String authHeader);
+
 
 
 
