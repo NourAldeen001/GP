@@ -17,10 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.mastercoding.gp.CustomDialogFragment;
 import com.mastercoding.gp.R;
 import com.mastercoding.gp.SessionSharedPreferences;
+import com.mastercoding.gp.customer.data.AddPackageToOrderListBody;
 import com.mastercoding.gp.customer.data.CustomerData;
 import com.mastercoding.gp.customer.data.Package;
+import com.mastercoding.gp.customer.ui.viewmodel.AddPackageToOrderListViewModel;
 import com.mastercoding.gp.customer.ui.viewmodel.GetCustomerByIdViewModel;
 import com.mastercoding.gp.customer.ui.viewmodel.GetPackageByIdAndBranchByIdViewModel;
 import com.mastercoding.gp.databinding.FragmentPackageDetailsBinding;
@@ -35,7 +38,11 @@ public class PackageDetailsFragment extends Fragment {
 
     GetPackageByIdAndBranchByIdViewModel getPackageByIdAndBranchByIdViewModel;
 
+    AddPackageToOrderListViewModel addPackageToOrderListViewModel;
+
     SessionSharedPreferences sessionSharedPreferences;
+
+    CustomDialogFragment dialogFragment;
 
     String userName, password, base, authHeader;
 
@@ -59,6 +66,10 @@ public class PackageDetailsFragment extends Fragment {
         customerByIdViewModel = new ViewModelProvider(this).get(GetCustomerByIdViewModel.class);
 
         getPackageByIdAndBranchByIdViewModel = new ViewModelProvider(this).get(GetPackageByIdAndBranchByIdViewModel.class);
+
+        addPackageToOrderListViewModel = new ViewModelProvider(this).get(AddPackageToOrderListViewModel.class);
+
+        dialogFragment = new CustomDialogFragment();
 
         userName = sessionSharedPreferences.getUsername();
         password = sessionSharedPreferences.getPass();
@@ -94,6 +105,23 @@ public class PackageDetailsFragment extends Fragment {
                         }
                     }
                 });
+            }
+        });
+
+        binding.packageDetailsAddToCartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogFragment.show(getChildFragmentManager(), "Add Package To Cart Dialog");
+                addPackageToOrderListViewModel.addPackageToOrderList(new AddPackageToOrderListBody(Integer.toString(sessionSharedPreferences.getID()), Integer.toString(packageId)), authHeader);
+            }
+        });
+
+        addPackageToOrderListViewModel.getAddPackageToOrderListStatus().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String message) {
+                if(dialogFragment != null && dialogFragment.isAdded()) {
+                    dialogFragment.updateMessage(message);
+                }
             }
         });
 
