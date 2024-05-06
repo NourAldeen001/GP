@@ -35,7 +35,7 @@ public class Service {
 
     @SerializedName("availableInBranch")
     @Expose
-    private String availableInBranch;
+    private Boolean availableInBranch;
 
     public Service() {
     }
@@ -96,11 +96,11 @@ public class Service {
         this.serviceCategory = serviceCategory;
     }
 
-    public String getAvailableInBranch() {
+    public Boolean getAvailableInBranch() {
         return availableInBranch;
     }
 
-    public void setAvailableInBranch(String availableInBranch) {
+    public void setAvailableInBranch(Boolean availableInBranch) {
         this.availableInBranch = availableInBranch;
     }
 }

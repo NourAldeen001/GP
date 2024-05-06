@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mastercoding.gp.R;
-import com.mastercoding.gp.customer.ItemClickListener;
-import com.mastercoding.gp.customer.data.ImageService;
 import com.mastercoding.gp.customer.data.Service;
 
 import java.util.List;

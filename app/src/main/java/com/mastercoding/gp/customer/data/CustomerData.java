@@ -39,7 +39,7 @@ public class CustomerData {
 
     @SerializedName("currentBranchId")
     @Expose
-    private String currentBranchId;
+    private Long currentBranchId;
 
     public CustomerData() {
     }
@@ -100,11 +100,11 @@ public class CustomerData {
         this.gender = gender;
     }
 
-    public String getCurrentBranchId() {
+    public Long getCurrentBranchId() {
         return currentBranchId;
     }
 
-    public void setCurrentBranchId(String currentBranchId) {
+    public void setCurrentBranchId(Long currentBranchId) {
         this.currentBranchId = currentBranchId;
     }
 

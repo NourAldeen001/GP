@@ -12,6 +12,7 @@ import com.mastercoding.gp.customer.data.DeleteCarResponse;
 import com.mastercoding.gp.customer.data.Package;
 import com.mastercoding.gp.customer.data.Service;
 
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -22,6 +23,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
 
@@ -64,12 +66,14 @@ public interface ApiService {
     @GET("customers/get-all-take-away-services")
     Call<List<Service>> getAllTakeAwayServices(@Header("Authorization") String authHeader);
 
+    //@HTTP(method = "get", path = "customers/get-service-by-id-and-branch-by-id", hasBody = true)
+    @GET("customers/get-service-by-id-and-branch-by-id")
+    Call<Service> getServiceByIdAndBranchId(@Query("serviceId") int serviceId, @Query("branchId") Long branchId, @Header("Authorization") String authHeader);
+
     // Packages For Customers
 
     @GET("customers/get-all-packages")
     Call<List<Package>> getAllPackages(@Header("Authorization") String authHeader);
-
-
 
 
 
