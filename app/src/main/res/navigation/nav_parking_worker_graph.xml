@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_parking_worker_graph"
+    app:startDestination="@id/parkingWorkerHomeFragment">
+
+    <fragment
+        android:id="@+id/parkingWorkerHomeFragment"
+        android:name="com.mastercoding.gp.parkingworker.ui.ParkingWorkerHomeFragment"
+        android:label="ParkingWorkerHomeFragment"
+        tools:layout="@layout/fragment_parking_worker_home"/>
+</navigation>

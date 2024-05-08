@@ -78,6 +78,9 @@ public interface ApiService {
     @PUT("customers/add-service-to-order-list")
     Call<AddServiceToOrderListResponse> addServiceToOrderList(@Body AddServiceToOrderListBody addServiceToOrderListBody, @Header("Authorization") String authHeader);
 
+    //@DELETE("customers/delete-service-from-order-list/{id}")
+    //Call<> deleteServiceFromOrderList(@Path("id") int serviceId, @Header("Authorization") String authHeader);
+
     // Packages For Customers
 
     @GET("customers/get-all-packages")

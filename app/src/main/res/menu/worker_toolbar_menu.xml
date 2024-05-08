@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/worker_toolbar_notification"
+        android:title=""
+        android:icon="@drawable/bell"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/worker_toolbar_profile"
+        android:title="profile"
+        app:showAsAction="always"
+        app:actionLayout="@layout/profile_menu_layout"/>
+
+</menu>
