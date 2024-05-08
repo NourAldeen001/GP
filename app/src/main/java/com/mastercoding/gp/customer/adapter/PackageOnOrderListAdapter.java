@@ -50,7 +50,10 @@ public class PackageOnOrderListAdapter extends RecyclerView.Adapter<PackageOnOrd
         holder.serviceNameTxt.setText(aPackage.getPackageName());
         holder.servicePriceTxt.setText(String.format("$ %s", aPackage.getPackagePrice()));
         holder.serviceTimeTxt.setText(String.format("%s minute", aPackage.getRequiredTime()));
-        if(aPackage.getAvailableInBranch()){
+        if(aPackage.getAvailableInBranch() == null){
+            holder.availableImg.setVisibility(View.INVISIBLE);
+        }
+        else if(aPackage.getAvailableInBranch()){
             holder.availableImg.setVisibility(View.INVISIBLE);
         }
         else {

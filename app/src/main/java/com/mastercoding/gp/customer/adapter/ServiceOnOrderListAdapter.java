@@ -50,7 +50,10 @@ public class ServiceOnOrderListAdapter extends RecyclerView.Adapter<ServiceOnOrd
         holder.serviceNameTxt.setText(service.getServiceName());
         holder.servicePriceTxt.setText(String.format("$ %s", service.getServicePrice()));
         holder.serviceTimeTxt.setText(String.format("%s minute", service.getRequiredTime()));
-        if(service.getAvailableInBranch()){
+        if(service.getAvailableInBranch() == null){
+            holder.availableImg.setVisibility(View.INVISIBLE);
+        }
+        else if(service.getAvailableInBranch()){
             holder.availableImg.setVisibility(View.INVISIBLE);
         }
         else {
