@@ -13,6 +13,7 @@ import com.mastercoding.gp.customer.data.CustomerCarDataBody;
 import com.mastercoding.gp.customer.data.CustomerData;
 import com.mastercoding.gp.customer.data.CustomerProfileBody;
 import com.mastercoding.gp.customer.data.DeleteCarResponse;
+import com.mastercoding.gp.customer.data.OrderList;
 import com.mastercoding.gp.customer.data.Package;
 import com.mastercoding.gp.customer.data.Service;
 
@@ -89,6 +90,9 @@ public interface ApiService {
     Call<AddPackageToOrderListResponse> addPackageToOrderList(@Body AddPackageToOrderListBody addPackageToOrderListBody, @Header("Authorization") String authHeader);
 
 
+
+    @GET("customers/get-non-confirm-order")
+    Call<OrderList> getNonConfirmOrder(@Query("customerId") int customerId, @Query("branchId") Long branchId, @Header("Authorization") String authHeader);
 
 
 
