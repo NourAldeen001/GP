@@ -13,12 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mastercoding.gp.CustomDialogFragment;
 import com.mastercoding.gp.R;
 import com.mastercoding.gp.SessionSharedPreferences;
 import com.mastercoding.gp.customer.adapter.PackageOnOrderListAdapter;
 import com.mastercoding.gp.customer.adapter.ServiceOnOrderListAdapter;
 import com.mastercoding.gp.customer.data.CustomerData;
 import com.mastercoding.gp.customer.data.OrderList;
+import com.mastercoding.gp.customer.ui.viewmodel.ConfirmOrderViewModel;
 import com.mastercoding.gp.customer.ui.viewmodel.DeletePackageFromOrderListViewModel;
 import com.mastercoding.gp.customer.ui.viewmodel.DeleteServiceFromOrderListViewModel;
 import com.mastercoding.gp.customer.ui.viewmodel.GetCustomerByIdViewModel;
@@ -38,11 +40,15 @@ public class CartFragment extends Fragment implements ServiceOnOrderListAdapter.
 
     DeletePackageFromOrderListViewModel deletePackageFromOrderListViewModel;
 
+    ConfirmOrderViewModel confirmOrderViewModel;
+
     ServiceOnOrderListAdapter serviceOnOrderListAdapter;
 
     PackageOnOrderListAdapter packageOnOrderListAdapter;
 
     SessionSharedPreferences sessionSharedPreferences;
+
+    CustomDialogFragment dialogFragment;
 
     String userName, password, base, authHeader;
 
@@ -65,6 +71,10 @@ public class CartFragment extends Fragment implements ServiceOnOrderListAdapter.
         deleteServiceFromOrderListViewModel = new ViewModelProvider(this).get(DeleteServiceFromOrderListViewModel.class);
 
         deletePackageFromOrderListViewModel = new ViewModelProvider(this).get(DeletePackageFromOrderListViewModel.class);
+
+        confirmOrderViewModel = new ViewModelProvider(this).get(ConfirmOrderViewModel.class);
+
+        dialogFragment = new CustomDialogFragment();
 
         userName = sessionSharedPreferences.getUsername();
         password = sessionSharedPreferences.getPass();
@@ -100,6 +110,24 @@ public class CartFragment extends Fragment implements ServiceOnOrderListAdapter.
             }
         });
 
+        binding.confirmCartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogFragment.show(getChildFragmentManager(), "Confirm Order Dialog");
+                confirmOrderViewModel.confirmOrder(sessionSharedPreferences.getID(), authHeader);
+                refreshData();
+            }
+        });
+
+        confirmOrderViewModel.getConfirmOrderStatus().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String message) {
+                if (dialogFragment != null && dialogFragment.isAdded()) {
+                    dialogFragment.updateMessage(message);
+                }
+            }
+        });
+
         binding.cartBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,16 +141,16 @@ public class CartFragment extends Fragment implements ServiceOnOrderListAdapter.
     @Override
     public void OnPackageDeleteItemClick(int packageId) {
         deletePackageFromOrderListViewModel.deletePackageFromOrderList(packageId, authHeader);
-        refreshDataAfterDelete();
+        refreshData();
     }
 
     @Override
     public void OnServiceDeleteItemClick(int serviceId) {
         deleteServiceFromOrderListViewModel.deleteServiceFromOrderList(serviceId, authHeader);
-        refreshDataAfterDelete();
+        refreshData();
     }
 
-    public void refreshDataAfterDelete(){
+    public void refreshData(){
         customerByIdViewModel.getCustomerById(sessionSharedPreferences.getID(), authHeader).observe(getViewLifecycleOwner(), new Observer<CustomerData>() {
             @Override
             public void onChanged(CustomerData customerData) {
