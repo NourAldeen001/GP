@@ -13,6 +13,8 @@ import com.mastercoding.gp.customer.data.CustomerCarDataBody;
 import com.mastercoding.gp.customer.data.CustomerData;
 import com.mastercoding.gp.customer.data.CustomerProfileBody;
 import com.mastercoding.gp.customer.data.DeleteCarResponse;
+import com.mastercoding.gp.customer.data.DeletePackageFromOrderListResponse;
+import com.mastercoding.gp.customer.data.DeleteServiceFromOrderListResponse;
 import com.mastercoding.gp.customer.data.OrderList;
 import com.mastercoding.gp.customer.data.Package;
 import com.mastercoding.gp.customer.data.Service;
@@ -78,8 +80,8 @@ public interface ApiService {
     @PUT("customers/add-service-to-order-list")
     Call<AddServiceToOrderListResponse> addServiceToOrderList(@Body AddServiceToOrderListBody addServiceToOrderListBody, @Header("Authorization") String authHeader);
 
-    //@DELETE("customers/delete-service-from-order-list/{id}")
-    //Call<> deleteServiceFromOrderList(@Path("id") int serviceId, @Header("Authorization") String authHeader);
+    @DELETE("customers/delete-service-from-order-list/{id}")
+    Call<DeleteServiceFromOrderListResponse> deleteServiceFromOrderList(@Path("id") int serviceId, @Header("Authorization") String authHeader);
 
     // Packages For Customers
 
@@ -91,6 +93,9 @@ public interface ApiService {
 
     @PUT("customers/add-package-to-order-list")
     Call<AddPackageToOrderListResponse> addPackageToOrderList(@Body AddPackageToOrderListBody addPackageToOrderListBody, @Header("Authorization") String authHeader);
+
+    @DELETE("customers/delete-package-from-order-list/{id}")
+    Call<DeletePackageFromOrderListResponse> deletePackageFromOrderList(@Path("id") int packageId, @Header("Authorization") String authHeader);
 
 
 

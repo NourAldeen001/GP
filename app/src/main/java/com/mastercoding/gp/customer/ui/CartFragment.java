@@ -19,6 +19,8 @@ import com.mastercoding.gp.customer.adapter.PackageOnOrderListAdapter;
 import com.mastercoding.gp.customer.adapter.ServiceOnOrderListAdapter;
 import com.mastercoding.gp.customer.data.CustomerData;
 import com.mastercoding.gp.customer.data.OrderList;
+import com.mastercoding.gp.customer.ui.viewmodel.DeletePackageFromOrderListViewModel;
+import com.mastercoding.gp.customer.ui.viewmodel.DeleteServiceFromOrderListViewModel;
 import com.mastercoding.gp.customer.ui.viewmodel.GetCustomerByIdViewModel;
 import com.mastercoding.gp.customer.ui.viewmodel.GetNonConfirmOrderViewModel;
 import com.mastercoding.gp.databinding.FragmentCartBinding;
@@ -31,6 +33,10 @@ public class CartFragment extends Fragment implements ServiceOnOrderListAdapter.
     GetCustomerByIdViewModel customerByIdViewModel;
 
     GetNonConfirmOrderViewModel getNonConfirmOrderViewModel;
+
+    DeleteServiceFromOrderListViewModel deleteServiceFromOrderListViewModel;
+
+    DeletePackageFromOrderListViewModel deletePackageFromOrderListViewModel;
 
     ServiceOnOrderListAdapter serviceOnOrderListAdapter;
 
@@ -55,6 +61,10 @@ public class CartFragment extends Fragment implements ServiceOnOrderListAdapter.
         customerByIdViewModel = new ViewModelProvider(this).get(GetCustomerByIdViewModel.class);
 
         getNonConfirmOrderViewModel = new ViewModelProvider(this).get(GetNonConfirmOrderViewModel.class);
+
+        deleteServiceFromOrderListViewModel = new ViewModelProvider(this).get(DeleteServiceFromOrderListViewModel.class);
+
+        deletePackageFromOrderListViewModel = new ViewModelProvider(this).get(DeletePackageFromOrderListViewModel.class);
 
         userName = sessionSharedPreferences.getUsername();
         password = sessionSharedPreferences.getPass();
@@ -102,11 +112,42 @@ public class CartFragment extends Fragment implements ServiceOnOrderListAdapter.
 
     @Override
     public void OnPackageDeleteItemClick(int packageId) {
-
+        deletePackageFromOrderListViewModel.deletePackageFromOrderList(packageId, authHeader);
+        refreshDataAfterDelete();
     }
 
     @Override
     public void OnServiceDeleteItemClick(int serviceId) {
+        deleteServiceFromOrderListViewModel.deleteServiceFromOrderList(serviceId, authHeader);
+        refreshDataAfterDelete();
+    }
 
+    public void refreshDataAfterDelete(){
+        customerByIdViewModel.getCustomerById(sessionSharedPreferences.getID(), authHeader).observe(getViewLifecycleOwner(), new Observer<CustomerData>() {
+            @Override
+            public void onChanged(CustomerData customerData) {
+
+                getNonConfirmOrderViewModel.getNonConfirmOrder(sessionSharedPreferences.getID(), customerData.getCurrentBranchId(), authHeader).observe(getViewLifecycleOwner(), new Observer<OrderList>() {
+                    @Override
+                    public void onChanged(OrderList orderList) {
+
+                        serviceOnOrderListAdapter = new ServiceOnOrderListAdapter(orderList.getServices());
+                        serviceOnOrderListAdapter.setOnServiceDeleteItemClickListener(CartFragment.this);
+                        binding.servicesCartRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+                        binding.servicesCartRecyclerView.setAdapter(serviceOnOrderListAdapter);
+
+
+                        packageOnOrderListAdapter = new PackageOnOrderListAdapter(orderList.getPackages());
+                        packageOnOrderListAdapter.setOnPackageDeleteItemClickListener(CartFragment.this);
+                        binding.packagesCartRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+                        binding.packagesCartRecyclerView.setAdapter(packageOnOrderListAdapter);
+
+                        binding.cartTotalCost.setText(String.format("$ %s", orderList.getOrderTotalCost()));
+                        binding.cartTotalTime.setText(String.format("%s minute", orderList.getTotalRequiredTime()));
+
+                    }
+                });
+            }
+        });
     }
 }
