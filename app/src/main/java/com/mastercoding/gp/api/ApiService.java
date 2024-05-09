@@ -16,6 +16,7 @@ import com.mastercoding.gp.customer.data.CustomerProfileBody;
 import com.mastercoding.gp.customer.data.DeleteCarResponse;
 import com.mastercoding.gp.customer.data.DeletePackageFromOrderListResponse;
 import com.mastercoding.gp.customer.data.DeleteServiceFromOrderListResponse;
+import com.mastercoding.gp.customer.data.GetProgressConfirmOrderResponse;
 import com.mastercoding.gp.customer.data.OrderList;
 import com.mastercoding.gp.customer.data.Package;
 import com.mastercoding.gp.customer.data.Service;
@@ -105,6 +106,9 @@ public interface ApiService {
 
     @PUT("customers/confirm-order/{id}")
     Call<ConfirmOrderResponse> confirmOrder(@Path("id") int customerId, @Header("Authorization") String authHeader);
+
+    @GET("customers/get-progress-confirm-order/{id}")
+    Call<GetProgressConfirmOrderResponse> getProgressConfirmOrder(@Path("id") int customerId, @Header("Authorization") String authHeader);
 
 
 

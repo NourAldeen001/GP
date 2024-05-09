@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_customerHomeFragment_to_serviceDetailsFragment"
             app:destination="@id/serviceDetailsFragment" />
+        <action
+            android:id="@+id/action_customerHomeFragment_to_customerOrderStatusFragment"
+            app:destination="@id/customerOrderStatusFragment" />
     </fragment>
     <fragment
         android:id="@+id/customerProfileFragment"
@@ -134,4 +137,9 @@
             android:name="packageId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/customerOrderStatusFragment"
+        android:name="com.mastercoding.gp.customer.ui.CustomerOrderStatusFragment"
+        android:label="fragment_customer_order_status"
+        tools:layout="@layout/fragment_customer_order_status"/>
 </navigation>

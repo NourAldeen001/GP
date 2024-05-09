@@ -111,6 +111,9 @@ public class CustomerActivity extends AppCompatActivity implements NavigationVie
                     return true;
                 }
                 else if(itemId == R.id.bottom_statusMenu){
+                    if(navController.getCurrentDestination().getId() != R.id.customerOrderStatusFragment){
+                        navController.navigate(R.id.customerOrderStatusFragment);
+                    }
                     return true;
                 }
                 else if(itemId == R.id.bottom_maps){

@@ -21,6 +21,10 @@ public class ServiceOnOrderList {
     @Expose
     private String requiredTime;
 
+    @SerializedName("progressStatus")
+    @Expose
+    private String progressStatus;
+
     @SerializedName("availableInBranch")
     @Expose
     private Boolean availableInBranch;
@@ -63,6 +67,14 @@ public class ServiceOnOrderList {
 
     public void setRequiredTime(String requiredTime) {
         this.requiredTime = requiredTime;
+    }
+
+    public String getProgressStatus() {
+        return progressStatus;
+    }
+
+    public void setProgressStatus(String progressStatus) {
+        this.progressStatus = progressStatus;
     }
 
     public Boolean getAvailableInBranch() {
