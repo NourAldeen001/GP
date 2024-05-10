@@ -21,6 +21,8 @@ import com.mastercoding.gp.customer.data.GetProgressConfirmOrderResponse;
 import com.mastercoding.gp.customer.data.OrderList;
 import com.mastercoding.gp.customer.data.Package;
 import com.mastercoding.gp.customer.data.Service;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerFinishTaskBody;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerFinishTaskResponse;
 
 
 import java.util.List;
@@ -113,6 +115,13 @@ public interface ApiService {
 
     @GET("customers/get-progress-confirm-order/{id}")
     Call<GetProgressConfirmOrderResponse> getProgressConfirmOrder(@Path("id") int customerId, @Header("Authorization") String authHeader);
+
+
+    // Parking Worker
+
+    @PUT("workers/finish-task")
+    Call<ParkingWorkerFinishTaskResponse> parkingWorkerFinishTask(@Body ParkingWorkerFinishTaskBody parkingWorkerFinishTaskBody, @Header("Authorization") String authHeader);
+
 
 
 
