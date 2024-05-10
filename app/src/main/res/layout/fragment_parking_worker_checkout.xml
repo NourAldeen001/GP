@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/service_detail_back"
+        tools:context=".parkingworker.ui.ParkingWorkerCheckoutFragment">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/parking_worker_checkout_back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="43dp"
+                android:layout_marginStart="17dp"
+                android:background="@color/white"
+                android:src="@drawable/back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/parking_worker_checkout_title_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="17dp"
+                android:text="Checkout"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/parking_worker_checkout_plate_num_fixed_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="17dp"
+                android:text="Plate number"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_back_btn" />
+
+            <TextView
+                android:id="@+id/parking_worker_checkout_plate_num_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="17dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_back_btn" />
+
+            <TextView
+                android:id="@+id/parking_worker_checkout_custom_name_fixed_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="17dp"
+                android:text="Customer name"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_plate_num_fixed_txt" />
+
+            <TextView
+                android:id="@+id/parking_worker_checkout_custom_name_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="17dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_plate_num_txt" />
+
+            <TextView
+                android:id="@+id/parking_worker_checkout_park_period_fixed_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="17dp"
+                android:text="Parking period"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_custom_name_fixed_txt" />
+
+            <TextView
+                android:id="@+id/parking_worker_checkout_park_period_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="17dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_custom_name_txt" />
+
+            <TextView
+                android:id="@+id/parking_worker_checkout_park_price_fixed_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="17dp"
+                android:text="Parking price"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_park_period_fixed_txt" />
+
+            <TextView
+                android:id="@+id/parking_worker_checkout_park_price_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="17dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_park_period_txt" />
+
+            <TextView
+                android:id="@+id/parking_worker_checkout_services_fixed_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="17dp"
+                android:text="Services"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_park_price_fixed_txt" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/parking_worker_checkout_services_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/recyclerview_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_services_fixed_txt" />
+
+            <TextView
+                android:id="@+id/parking_worker_checkout_packages_fixed_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="17dp"
+                android:text="Packages"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_services_recyclerView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/parking_worker_checkout_packages_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/recyclerview_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_packages_fixed_txt" />
+
+            <TextView
+                android:id="@+id/parking_worker_checkout_order_cost_fixed_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="17dp"
+                android:text="Order Cost"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_packages_recyclerView" />
+
+            <TextView
+                android:id="@+id/parking_worker_checkout_order_cost_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="17dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_packages_recyclerView" />
+
+            <TextView
+                android:id="@+id/parking_worker_checkout_total_cost_fixed_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="17dp"
+                android:text="Total Cost"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_order_cost_fixed_txt" />
+
+            <TextView
+                android:id="@+id/parking_worker_checkout_total_cost_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="17dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_order_cost_txt" />
+
+            <Button
+                android:id="@+id/parking_worker_checkout_close_btn"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button_back"
+                android:text="Close"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/parking_worker_checkout_total_cost_fixed_txt"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_total_cost_fixed_txt" />
+
+            <Button
+                android:id="@+id/parking_worker_checkout_print_btn"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button_back"
+                android:text="Print"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/parking_worker_checkout_total_cost_txt"
+                app:layout_constraintTop_toBottomOf="@+id/parking_worker_checkout_total_cost_txt" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

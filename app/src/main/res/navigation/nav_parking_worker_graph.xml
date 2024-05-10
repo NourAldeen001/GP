@@ -9,5 +9,18 @@
         android:id="@+id/parkingWorkerHomeFragment"
         android:name="com.mastercoding.gp.parkingworker.ui.ParkingWorkerHomeFragment"
         android:label="ParkingWorkerHomeFragment"
-        tools:layout="@layout/fragment_parking_worker_home"/>
+        tools:layout="@layout/fragment_parking_worker_home">
+        <action
+            android:id="@+id/action_parkingWorkerHomeFragment_to_parkingWorkerCheckoutFragment"
+            app:destination="@id/parkingWorkerCheckoutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/parkingWorkerCheckoutFragment"
+        android:name="com.mastercoding.gp.parkingworker.ui.ParkingWorkerCheckoutFragment"
+        android:label="fragment_parking_worker_checkout"
+        tools:layout="@layout/fragment_parking_worker_checkout">
+        <argument
+            android:name="carPlateNumber"
+            app:argType="string"/>
+    </fragment>
 </navigation>

@@ -21,8 +21,12 @@ import com.mastercoding.gp.customer.data.GetProgressConfirmOrderResponse;
 import com.mastercoding.gp.customer.data.OrderList;
 import com.mastercoding.gp.customer.data.Package;
 import com.mastercoding.gp.customer.data.Service;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerCheckoutBody;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerCheckoutResponse;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerFinishTaskBody;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerFinishTaskResponse;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerRecordBody;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerRecordResponse;
 
 
 import java.util.List;
@@ -119,8 +123,14 @@ public interface ApiService {
 
     // Parking Worker
 
+    @POST("workers/record-visitation")
+    Call<ParkingWorkerRecordResponse> parkingWorkerRecord(@Body ParkingWorkerRecordBody parkingWorkerRecordBody, @Header("Authorization") String authHeader);
+
     @PUT("workers/finish-task")
     Call<ParkingWorkerFinishTaskResponse> parkingWorkerFinishTask(@Body ParkingWorkerFinishTaskBody parkingWorkerFinishTaskBody, @Header("Authorization") String authHeader);
+
+    @PUT("workers/check-out")
+    Call<ParkingWorkerCheckoutResponse> parkingWorkerCheckout(@Body ParkingWorkerCheckoutBody parkingWorkerCheckoutBody, @Header("Authorization") String authHeader);
 
 
 

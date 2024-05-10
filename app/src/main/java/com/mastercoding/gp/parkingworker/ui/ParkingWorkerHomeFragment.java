@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -14,14 +15,19 @@ import android.view.ViewGroup;
 import com.mastercoding.gp.CustomDialogFragment;
 import com.mastercoding.gp.R;
 import com.mastercoding.gp.SessionSharedPreferences;
+import com.mastercoding.gp.customer.ui.CustomerHomeFragmentDirections;
 import com.mastercoding.gp.databinding.FragmentParkingWorkerHomeBinding;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerFinishTaskBody;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerRecordBody;
 import com.mastercoding.gp.parkingworker.ui.viewmodel.ParkingWorkerFinishTaskViewModel;
+import com.mastercoding.gp.parkingworker.ui.viewmodel.ParkingWorkerRecordViewModel;
 
 
 public class ParkingWorkerHomeFragment extends Fragment {
 
     FragmentParkingWorkerHomeBinding binding;
+
+    ParkingWorkerRecordViewModel parkingWorkerRecordViewModel;
 
     ParkingWorkerFinishTaskViewModel parkingWorkerFinishTaskViewModel;
 
@@ -46,6 +52,8 @@ public class ParkingWorkerHomeFragment extends Fragment {
 
         parkingWorkerFinishTaskViewModel = new ViewModelProvider(this).get(ParkingWorkerFinishTaskViewModel.class);
 
+        parkingWorkerRecordViewModel = new ViewModelProvider(this).get(ParkingWorkerRecordViewModel.class);
+
         dialogFragment = new CustomDialogFragment();
 
         userName = sessionSharedPreferences.getUsername();
@@ -55,6 +63,32 @@ public class ParkingWorkerHomeFragment extends Fragment {
 
         authHeader = "Basic " + Base64.encodeToString(base.getBytes(), Base64.NO_WRAP);
 
+
+        binding.parkingWorkerHomeRecordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogFragment.show(getChildFragmentManager(), "Record Dialog");
+                String carPlateNumber = binding.parkingWorkerHomeCarPlateEditTxt.getText().toString();
+                parkingWorkerRecordViewModel.record(new ParkingWorkerRecordBody(carPlateNumber, Integer.toString(sessionSharedPreferences.getID())), authHeader);
+            }
+        });
+
+        parkingWorkerRecordViewModel.getRecordStatus().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String message) {
+                if(dialogFragment != null && dialogFragment.isAdded()){
+                    dialogFragment.updateMessage(message);
+                }
+            }
+        });
+
+        binding.parkingWorkerHomeCheckoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String carPlateNumber = binding.parkingWorkerHomeCarPlateEditTxt.getText().toString();
+                navigateToParkingWorkerCheckoutFragment(carPlateNumber);
+            }
+        });
 
         binding.parkingWorkerHomeFinishTaskBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,5 +109,12 @@ public class ParkingWorkerHomeFragment extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    private void navigateToParkingWorkerCheckoutFragment(String carPlateNumber) {
+        // Use Safe Args to pass data to another fragment
+        ParkingWorkerHomeFragmentDirections.ActionParkingWorkerHomeFragmentToParkingWorkerCheckoutFragment action =
+                ParkingWorkerHomeFragmentDirections.actionParkingWorkerHomeFragmentToParkingWorkerCheckoutFragment(carPlateNumber);
+        Navigation.findNavController(requireView()).navigate(action);
     }
 }
