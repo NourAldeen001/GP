@@ -66,7 +66,11 @@
         android:id="@+id/cartFragment"
         android:name="com.mastercoding.gp.customer.ui.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_emptyCartFragment"
+            app:destination="@id/emptyCartFragment" />
+    </fragment>
     <fragment
         android:id="@+id/customerTermsFragment"
         android:name="com.mastercoding.gp.customer.ui.CustomerTermsFragment"
@@ -142,4 +146,9 @@
         android:name="com.mastercoding.gp.customer.ui.CustomerOrderStatusFragment"
         android:label="fragment_customer_order_status"
         tools:layout="@layout/fragment_customer_order_status"/>
+    <fragment
+        android:id="@+id/emptyCartFragment"
+        android:name="com.mastercoding.gp.customer.ui.EmptyCartFragment"
+        android:label="fragment_empty_cart"
+        tools:layout="@layout/fragment_empty_cart"/>
 </navigation>

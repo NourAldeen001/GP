@@ -8,6 +8,7 @@ import com.mastercoding.gp.customer.data.AddPackageToOrderListBody;
 import com.mastercoding.gp.customer.data.AddPackageToOrderListResponse;
 import com.mastercoding.gp.customer.data.AddServiceToOrderListBody;
 import com.mastercoding.gp.customer.data.AddServiceToOrderListResponse;
+import com.mastercoding.gp.customer.data.ClearOrderResponse;
 import com.mastercoding.gp.customer.data.ConfirmOrderResponse;
 import com.mastercoding.gp.customer.data.CustomerCarData;
 import com.mastercoding.gp.customer.data.CustomerCarDataBody;
@@ -106,6 +107,9 @@ public interface ApiService {
 
     @PUT("customers/confirm-order/{id}")
     Call<ConfirmOrderResponse> confirmOrder(@Path("id") int customerId, @Header("Authorization") String authHeader);
+
+    @DELETE("customers/clear-order-list/{id}")
+    Call<ClearOrderResponse> clearOrder(@Path("id") int customerId, @Header("Authorization") String authHeader);
 
     @GET("customers/get-progress-confirm-order/{id}")
     Call<GetProgressConfirmOrderResponse> getProgressConfirmOrder(@Path("id") int customerId, @Header("Authorization") String authHeader);

@@ -2,17 +2,25 @@ package com.mastercoding.gp.customer.ui;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.navigation.NavigationView;
 import com.mastercoding.gp.CustomDialogFragment;
 import com.mastercoding.gp.R;
 import com.mastercoding.gp.SessionSharedPreferences;
@@ -20,6 +28,7 @@ import com.mastercoding.gp.customer.adapter.PackageOnOrderListAdapter;
 import com.mastercoding.gp.customer.adapter.ServiceOnOrderListAdapter;
 import com.mastercoding.gp.customer.data.CustomerData;
 import com.mastercoding.gp.customer.data.OrderList;
+import com.mastercoding.gp.customer.ui.viewmodel.ClearOrderViewModel;
 import com.mastercoding.gp.customer.ui.viewmodel.ConfirmOrderViewModel;
 import com.mastercoding.gp.customer.ui.viewmodel.DeletePackageFromOrderListViewModel;
 import com.mastercoding.gp.customer.ui.viewmodel.DeleteServiceFromOrderListViewModel;
@@ -41,6 +50,8 @@ public class CartFragment extends Fragment implements ServiceOnOrderListAdapter.
     DeletePackageFromOrderListViewModel deletePackageFromOrderListViewModel;
 
     ConfirmOrderViewModel confirmOrderViewModel;
+
+    ClearOrderViewModel clearOrderViewModel;
 
     ServiceOnOrderListAdapter serviceOnOrderListAdapter;
 
@@ -74,6 +85,8 @@ public class CartFragment extends Fragment implements ServiceOnOrderListAdapter.
 
         confirmOrderViewModel = new ViewModelProvider(this).get(ConfirmOrderViewModel.class);
 
+        clearOrderViewModel = new ViewModelProvider(this).get(ClearOrderViewModel.class);
+
         dialogFragment = new CustomDialogFragment();
 
         userName = sessionSharedPreferences.getUsername();
@@ -90,21 +103,28 @@ public class CartFragment extends Fragment implements ServiceOnOrderListAdapter.
                 getNonConfirmOrderViewModel.getNonConfirmOrder(sessionSharedPreferences.getID(), customerData.getCurrentBranchId(), authHeader).observe(getViewLifecycleOwner(), new Observer<OrderList>() {
                     @Override
                     public void onChanged(OrderList orderList) {
+                        NavController navController = NavHostFragment.findNavController(CartFragment.this);
+                        Log.i("OrderList Debug", "Services: " + orderList.getServices());
+                        Log.i("OrderList Debug", "Packages: " + orderList.getPackages());
+                        if(orderList.getServices().isEmpty() && orderList.getPackages().isEmpty()){
+                            Log.i("Go To Empty Cart", "I AM HERE NOUR");
+                            navController.navigate(R.id.emptyCartFragment);
+                        }
+                        else {
+                            serviceOnOrderListAdapter = new ServiceOnOrderListAdapter(orderList.getServices());
+                            serviceOnOrderListAdapter.setOnServiceDeleteItemClickListener(CartFragment.this);
+                            binding.servicesCartRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext(), LinearLayoutManager.VERTICAL, false));
+                            binding.servicesCartRecyclerView.setAdapter(serviceOnOrderListAdapter);
 
-                        serviceOnOrderListAdapter = new ServiceOnOrderListAdapter(orderList.getServices());
-                        serviceOnOrderListAdapter.setOnServiceDeleteItemClickListener(CartFragment.this);
-                        binding.servicesCartRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext(), LinearLayoutManager.VERTICAL, false));
-                        binding.servicesCartRecyclerView.setAdapter(serviceOnOrderListAdapter);
 
+                            packageOnOrderListAdapter = new PackageOnOrderListAdapter(orderList.getPackages());
+                            packageOnOrderListAdapter.setOnPackageDeleteItemClickListener(CartFragment.this);
+                            binding.packagesCartRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext(), LinearLayoutManager.VERTICAL, false));
+                            binding.packagesCartRecyclerView.setAdapter(packageOnOrderListAdapter);
 
-                        packageOnOrderListAdapter = new PackageOnOrderListAdapter(orderList.getPackages());
-                        packageOnOrderListAdapter.setOnPackageDeleteItemClickListener(CartFragment.this);
-                        binding.packagesCartRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext(), LinearLayoutManager.VERTICAL, false));
-                        binding.packagesCartRecyclerView.setAdapter(packageOnOrderListAdapter);
-
-                        binding.cartTotalCost.setText(String.format("$ %s", orderList.getOrderTotalCost()));
-                        binding.cartTotalTime.setText(String.format("%s minute", orderList.getTotalRequiredTime()));
-
+                            binding.cartTotalCost.setText(String.format("$ %s", orderList.getOrderTotalCost()));
+                            binding.cartTotalTime.setText(String.format("%s minute", orderList.getTotalRequiredTime()));
+                        }
                     }
                 });
             }
@@ -125,6 +145,14 @@ public class CartFragment extends Fragment implements ServiceOnOrderListAdapter.
                 if (dialogFragment != null && dialogFragment.isAdded()) {
                     dialogFragment.updateMessage(message);
                 }
+            }
+        });
+
+        binding.clearCartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearOrderViewModel.clearOrder(sessionSharedPreferences.getID(), authHeader);
+                Navigation.findNavController(view).navigate(R.id.emptyCartFragment);
             }
         });
 
