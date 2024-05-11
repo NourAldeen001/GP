@@ -45,6 +45,9 @@ dependencies {
     // Gson Converter
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
+    // Okhttp3
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+
     // Circle Image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 

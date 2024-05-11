@@ -25,6 +25,8 @@ import com.mastercoding.gp.parkingworker.data.ParkingWorkerCheckoutBody;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerCheckoutResponse;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerFinishTaskBody;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerFinishTaskResponse;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerGetCapacityResponse;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerGetCountVisitationResponse;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerRecordBody;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerRecordResponse;
 
@@ -132,6 +134,11 @@ public interface ApiService {
     @PUT("workers/check-out")
     Call<ParkingWorkerCheckoutResponse> parkingWorkerCheckout(@Body ParkingWorkerCheckoutBody parkingWorkerCheckoutBody, @Header("Authorization") String authHeader);
 
+    @GET("workers/get-count-of-visitation-of-branch/{id}")
+    Call<ParkingWorkerGetCountVisitationResponse> parkingWorkerGetCountVisitationOfBranch(@Path("id") int workerId, @Header("Authorization") String authHeader);
+
+    @GET("workers/get-getCapacity-of-branch/{id}")
+    Call<ParkingWorkerGetCapacityResponse> parkingWorkerGetCapacityOfBranch(@Path("id") int workerId, @Header("Authorization") String authHeader);
 
 
 

@@ -3,11 +3,14 @@ package com.mastercoding.gp.parkingworker.ui;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.util.Base64;
+import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +21,12 @@ import com.mastercoding.gp.SessionSharedPreferences;
 import com.mastercoding.gp.customer.ui.CustomerHomeFragmentDirections;
 import com.mastercoding.gp.databinding.FragmentParkingWorkerHomeBinding;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerFinishTaskBody;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerGetCapacityResponse;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerGetCountVisitationResponse;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerRecordBody;
 import com.mastercoding.gp.parkingworker.ui.viewmodel.ParkingWorkerFinishTaskViewModel;
+import com.mastercoding.gp.parkingworker.ui.viewmodel.ParkingWorkerGetCapacityOfBranchViewModel;
+import com.mastercoding.gp.parkingworker.ui.viewmodel.ParkingWorkerGetCountVisitationOfBranchViewModel;
 import com.mastercoding.gp.parkingworker.ui.viewmodel.ParkingWorkerRecordViewModel;
 
 
@@ -30,6 +37,10 @@ public class ParkingWorkerHomeFragment extends Fragment {
     ParkingWorkerRecordViewModel parkingWorkerRecordViewModel;
 
     ParkingWorkerFinishTaskViewModel parkingWorkerFinishTaskViewModel;
+
+    ParkingWorkerGetCountVisitationOfBranchViewModel parkingWorkerGetCountVisitationOfBranchViewModel;
+
+    ParkingWorkerGetCapacityOfBranchViewModel parkingWorkerGetCapacityOfBranchViewModel;
 
     SessionSharedPreferences sessionSharedPreferences;
 
@@ -54,6 +65,10 @@ public class ParkingWorkerHomeFragment extends Fragment {
 
         parkingWorkerRecordViewModel = new ViewModelProvider(this).get(ParkingWorkerRecordViewModel.class);
 
+        parkingWorkerGetCountVisitationOfBranchViewModel = new ViewModelProvider(this).get(ParkingWorkerGetCountVisitationOfBranchViewModel.class);
+
+        parkingWorkerGetCapacityOfBranchViewModel = new ViewModelProvider(this).get(ParkingWorkerGetCapacityOfBranchViewModel.class);
+
         dialogFragment = new CustomDialogFragment();
 
         userName = sessionSharedPreferences.getUsername();
@@ -62,6 +77,20 @@ public class ParkingWorkerHomeFragment extends Fragment {
         base = userName + ":" + password;
 
         authHeader = "Basic " + Base64.encodeToString(base.getBytes(), Base64.NO_WRAP);
+
+        parkingWorkerGetCountVisitationOfBranchViewModel.getCountVisitationOfBranch(sessionSharedPreferences.getID(), authHeader).observe(getViewLifecycleOwner(), new Observer<ParkingWorkerGetCountVisitationResponse>() {
+            @Override
+            public void onChanged(ParkingWorkerGetCountVisitationResponse parkingWorkerGetCountVisitationResponse) {
+                parkingWorkerGetCapacityOfBranchViewModel.parkingWorkerGetCapacityOfBranch(sessionSharedPreferences.getID(), authHeader).observe(getViewLifecycleOwner(), new Observer<ParkingWorkerGetCapacityResponse>() {
+                    @Override
+                    public void onChanged(ParkingWorkerGetCapacityResponse parkingWorkerGetCapacityResponse) {
+                        Log.i("Capacity", "Capacity : " + parkingWorkerGetCapacityResponse.getCapacity());
+                        binding.parkingWorkerHomeTotalCarToCapacity.setText(String.format("%s / %s", parkingWorkerGetCountVisitationResponse.getVisitationCount(), parkingWorkerGetCapacityResponse.getCapacity()));
+                    }
+                });
+            }
+        });
+
 
 
         binding.parkingWorkerHomeRecordBtn.setOnClickListener(new View.OnClickListener() {
