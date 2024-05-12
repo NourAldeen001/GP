@@ -13,6 +13,18 @@
         <action
             android:id="@+id/action_parkingWorkerHomeFragment_to_parkingWorkerCheckoutFragment"
             app:destination="@id/parkingWorkerCheckoutFragment" />
+        <action
+            android:id="@+id/action_parkingWorkerHomeFragment_to_parkingWorkerProfileFragment"
+            app:destination="@id/parkingWorkerProfileFragment" />
+        <action
+            android:id="@+id/action_parkingWorkerHomeFragment_to_parkingWorkerNotificationFragment"
+            app:destination="@id/parkingWorkerNotificationFragment" />
+        <action
+            android:id="@+id/action_parkingWorkerHomeFragment_to_parkingWorkerAvailablityFragment"
+            app:destination="@id/parkingWorkerAvailablityFragment" />
+        <action
+            android:id="@+id/action_parkingWorkerHomeFragment_to_parkingWorkerTermsFragment"
+            app:destination="@id/parkingWorkerTermsFragment" />
     </fragment>
     <fragment
         android:id="@+id/parkingWorkerCheckoutFragment"
@@ -23,4 +35,33 @@
             android:name="carPlateNumber"
             app:argType="string"/>
     </fragment>
+    <fragment
+        android:id="@+id/parkingWorkerProfileFragment"
+        android:name="com.mastercoding.gp.parkingworker.ui.ParkingWorkerProfileFragment"
+        android:label="fragment_parking_worker_profile"
+        tools:layout="@layout/fragment_parking_worker_profile" >
+        <action
+            android:id="@+id/action_parkingWorkerProfileFragment_to_parkingWorkerEditProfileFragment"
+            app:destination="@id/parkingWorkerEditProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/parkingWorkerNotificationFragment"
+        android:name="com.mastercoding.gp.parkingworker.ui.ParkingWorkerNotificationFragment"
+        android:label="fragment_parking_worker_notification"
+        tools:layout="@layout/fragment_parking_worker_notification" />
+    <fragment
+        android:id="@+id/parkingWorkerAvailablityFragment"
+        android:name="com.mastercoding.gp.parkingworker.ui.ParkingWorkerAvailablityFragment"
+        android:label="fragment_parking_worker_availablity"
+        tools:layout="@layout/fragment_parking_worker_availablity" />
+    <fragment
+        android:id="@+id/parkingWorkerTermsFragment"
+        android:name="com.mastercoding.gp.parkingworker.ui.ParkingWorkerTermsFragment"
+        android:label="fragment_parking_worker_terms"
+        tools:layout="@layout/fragment_parking_worker_terms" />
+    <fragment
+        android:id="@+id/parkingWorkerEditProfileFragment"
+        android:name="com.mastercoding.gp.parkingworker.ui.ParkingWorkerEditProfileFragment"
+        android:label="fragment_parking_worker_edit_profile"
+        tools:layout="@layout/fragment_parking_worker_edit_profile"/>
 </navigation>

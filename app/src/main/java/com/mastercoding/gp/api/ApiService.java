@@ -23,10 +23,13 @@ import com.mastercoding.gp.customer.data.Package;
 import com.mastercoding.gp.customer.data.Service;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerCheckoutBody;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerCheckoutResponse;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerData;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerFinishTaskBody;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerFinishTaskResponse;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerGetCapacityResponse;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerGetCountVisitationResponse;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerProfileBody;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerProfileData;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerRecordBody;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerRecordResponse;
 
@@ -124,6 +127,12 @@ public interface ApiService {
 
 
     // Parking Worker
+
+    @GET("workers/get-worker-by-id/{id}")
+    Call<ParkingWorkerData> getParkingWorkerById(@Path("id") int workerId, @Header("Authorization") String authHeader);
+
+    @PUT("workers/edit-profile/{id}")
+    Call<ParkingWorkerProfileData> editParkingWorkerProfile(@Path("id") int workerId, @Body ParkingWorkerProfileBody parkingWorkerProfileBody, @Header("Authorization") String auhHeader);
 
     @POST("workers/record-visitation")
     Call<ParkingWorkerRecordResponse> parkingWorkerRecord(@Body ParkingWorkerRecordBody parkingWorkerRecordBody, @Header("Authorization") String authHeader);

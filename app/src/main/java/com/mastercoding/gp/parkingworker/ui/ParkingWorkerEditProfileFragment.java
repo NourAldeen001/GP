@@ -1,11 +1,9 @@
-package com.mastercoding.gp.customer.ui;
+package com.mastercoding.gp.parkingworker.ui;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,10 +14,12 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,19 +27,19 @@ import android.view.ViewGroup;
 import com.mastercoding.gp.CustomDialogFragment;
 import com.mastercoding.gp.R;
 import com.mastercoding.gp.SessionSharedPreferences;
-import com.mastercoding.gp.customer.data.CustomerData;
-import com.mastercoding.gp.customer.data.CustomerProfileBody;
-import com.mastercoding.gp.customer.ui.viewmodel.EditCustomerProfileViewModel;
-import com.mastercoding.gp.customer.ui.viewmodel.GetCustomerByIdViewModel;
-import com.mastercoding.gp.databinding.FragmentCustomerEditProfileBinding;
+import com.mastercoding.gp.databinding.FragmentParkingWorkerEditProfileBinding;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerData;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerProfileBody;
+import com.mastercoding.gp.parkingworker.ui.viewmodel.EditParkingWorkerProfileViewModel;
+import com.mastercoding.gp.parkingworker.ui.viewmodel.GetParkingWorkerByIdViewModel;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 
-public class CustomerEditProfileFragment extends Fragment {
+public class ParkingWorkerEditProfileFragment extends Fragment {
 
-    FragmentCustomerEditProfileBinding binding;
+    FragmentParkingWorkerEditProfileBinding binding;
 
     private ActivityResultLauncher<Intent> galleryLauncher;
 
@@ -49,30 +49,31 @@ public class CustomerEditProfileFragment extends Fragment {
 
     String currentImage;
 
+    GetParkingWorkerByIdViewModel parkingWorkerByIdViewModel;
+
+    EditParkingWorkerProfileViewModel editParkingWorkerProfileViewModel;
+
     CustomDialogFragment dialogFragment;
-
-    EditCustomerProfileViewModel editCustomerProfileViewModel;
-
-    GetCustomerByIdViewModel customerByIdViewModel;
 
     SessionSharedPreferences sessionSharedPreferences;
 
-    public CustomerEditProfileFragment() {
+    public ParkingWorkerEditProfileFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentCustomerEditProfileBinding.inflate(inflater, container, false);
+        binding = FragmentParkingWorkerEditProfileBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(this);
 
         sessionSharedPreferences = new SessionSharedPreferences(getContext());
 
-        customerByIdViewModel = new ViewModelProvider(this).get(GetCustomerByIdViewModel.class);
+        parkingWorkerByIdViewModel = new ViewModelProvider(this).get(GetParkingWorkerByIdViewModel.class);
 
-        editCustomerProfileViewModel = new ViewModelProvider(this).get(EditCustomerProfileViewModel.class);
+        editParkingWorkerProfileViewModel = new ViewModelProvider(this).get(EditParkingWorkerProfileViewModel.class);
 
         dialogFragment = new CustomDialogFragment();
 
@@ -83,56 +84,56 @@ public class CustomerEditProfileFragment extends Fragment {
 
         String authHeader = "Basic " + Base64.encodeToString(base.getBytes(), Base64.NO_WRAP);
 
-        customerByIdViewModel.getCustomerById(sessionSharedPreferences.getID(), authHeader).observe(getViewLifecycleOwner(), new Observer<CustomerData>() {
+        parkingWorkerByIdViewModel.getParkingWorkerById(sessionSharedPreferences.getID(), authHeader).observe(getViewLifecycleOwner(), new Observer<ParkingWorkerData>() {
             @Override
-            public void onChanged(CustomerData customerData) {
-                currentImage = customerData.getImage();
+            public void onChanged(ParkingWorkerData parkingWorkerData) {
+                currentImage = parkingWorkerData.getImage();
                 if(currentImage != null){
-                    Bitmap imgBitmap = convertBase64ToBitmap(customerData.getImage());
-                    binding.customEditProfileImg.setImageBitmap(imgBitmap);
+                    Bitmap imgBitmap = convertBase64ToBitmap(parkingWorkerData.getImage());
+                    binding.parkingWorkerEditProfileImg.setImageBitmap(imgBitmap);
                 }
-                binding.customEditFullNameTxt.setText(String.format("%s %s", customerData.getFirstName(), customerData.getLastName()));
-                binding.customEditFirstNameEdtxt.setText(customerData.getFirstName());
-                binding.customEditLastNameEdtxt.setText(customerData.getLastName());
-                binding.customEditPassEdtxt.setText(customerData.getPassword());
-                binding.customEditEmailEdtxt.setText(customerData.getEmail());
-                binding.customEditGenderEdtxt.setText(customerData.getGender());
-                binding.customEditBirthEdtxt.setText(customerData.getBirthday());
-                binding.customEditPhoneEdtxt.setText(customerData.getPhoneNumber());
+                binding.parkingWorkerEditFullNameTxt.setText(String.format("%s %s", parkingWorkerData.getFirstName(), parkingWorkerData.getLastName()));
+                binding.parkingWorkerEditFirstNameEdtxt.setText(parkingWorkerData.getFirstName());
+                binding.parkingWorkerEditLastNameEdtxt.setText(parkingWorkerData.getLastName());
+                binding.parkingWorkerEditPassEdtxt.setText(parkingWorkerData.getPassword());
+                binding.parkingWorkerEditEmailEdtxt.setText(parkingWorkerData.getEmail());
+                binding.parkingWorkerEditGenderEdtxt.setText(parkingWorkerData.getGender());
+                binding.parkingWorkerEditBirthEdtxt.setText(parkingWorkerData.getBirthday());
+                binding.parkingWorkerEditPhoneEdtxt.setText(parkingWorkerData.getPhoneNumber());
             }
         });
 
-        binding.customEditProfileSaveBtn.setOnClickListener(new View.OnClickListener() {
+        binding.parkingWorkerEditProfileSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(imgBase64AfterGetFromGallery != null){
                     image = imgBase64AfterGetFromGallery;
+                    Log.i("imgBase64AfterGetFromGallery", "imgBase64AfterGetFromGallery");
                 }
                 else if(currentImage != null){
                     image = currentImage;
+                    Log.i("currentImage", "currentImage");
                 }
+                String firstName = binding.parkingWorkerEditFirstNameEdtxt.getText().toString();
+                String lastName = binding.parkingWorkerEditLastNameEdtxt.getText().toString();
+                String email = binding.parkingWorkerEditEmailEdtxt.getText().toString();
+                String password = binding.parkingWorkerEditPassEdtxt.getText().toString();
+                String birth = binding.parkingWorkerEditBirthEdtxt.getText().toString();
+                String phone = binding.parkingWorkerEditPhoneEdtxt.getText().toString();
+                String gender = binding.parkingWorkerEditGenderEdtxt.getText().toString();
+                dialogFragment.show(getChildFragmentManager(), "Edit Profile Dialog");
+                editParkingWorkerProfileViewModel.editParkingWorkerProfile(sessionSharedPreferences.getID(),
+                        new ParkingWorkerProfileBody(firstName, lastName, password, email, image, phone, birth, gender), authHeader);
 
-                String firstName = binding.customEditFirstNameEdtxt.getText().toString();
-                String lastName = binding.customEditLastNameEdtxt.getText().toString();
-                String email = binding.customEditEmailEdtxt.getText().toString();
-                String password = binding.customEditPassEdtxt.getText().toString();
-                String birth = binding.customEditBirthEdtxt.getText().toString();
-                String phone = binding.customEditPhoneEdtxt.getText().toString();
-                String gender = binding.customEditGenderEdtxt.getText().toString();
-                dialogFragment.show(getChildFragmentManager(), "Custom Dialog");
-                editCustomerProfileViewModel.editCustomerProfile(sessionSharedPreferences.getID(), authHeader,
-                        new CustomerProfileBody(firstName, lastName, password, email, image, phone, birth, gender));
-
-                binding.customEditFullNameTxt.setText(String.format("%s %s", firstName, lastName));
+                binding.parkingWorkerEditFullNameTxt.setText(String.format("%s %s", firstName, lastName));
 
                 if(!(sessionSharedPreferences.getPass().equals(password))){
                     sessionSharedPreferences.setPass(password);
                 }
-
             }
         });
 
-        editCustomerProfileViewModel.getUpdatedCustomerStatus().observe(getViewLifecycleOwner(), new Observer<String>() {
+        editParkingWorkerProfileViewModel.getEditProfileDataStatus().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String message) {
                 if (dialogFragment != null && dialogFragment.isAdded()) {
@@ -140,7 +141,6 @@ public class CustomerEditProfileFragment extends Fragment {
                 }
             }
         });
-
 
         galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
@@ -152,7 +152,7 @@ public class CustomerEditProfileFragment extends Fragment {
                         if(imageUri != null){
                             try {
                                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
-                                binding.customEditProfileImg.setImageBitmap(bitmap);
+                                binding.parkingWorkerEditProfileImg.setImageBitmap(bitmap);
                                 imgBase64AfterGetFromGallery = convertBitmapToBase64(bitmap);
                             }
                             catch(IOException e){
@@ -164,21 +164,21 @@ public class CustomerEditProfileFragment extends Fragment {
             }
         });
 
-        binding.customEditProfileImg.setOnClickListener(new View.OnClickListener() {
+        binding.parkingWorkerEditProfileImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openGallery();
             }
         });
 
-        binding.customEditProfileCloseBtn.setOnClickListener(new View.OnClickListener() {
+        binding.parkingWorkerEditProfileCloseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_customerEditProfileFragment_to_customerHomeFragment);
+                Navigation.findNavController(view).navigate(R.id.parkingWorkerHomeFragment);
             }
         });
 
-        binding.customEditProfileBackBtn.setOnClickListener(new View.OnClickListener() {
+        binding.parkingWorkerEditProfileBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).popBackStack();
@@ -187,7 +187,6 @@ public class CustomerEditProfileFragment extends Fragment {
 
         return binding.getRoot();
     }
-
 
     private void openGallery(){
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -205,6 +204,4 @@ public class CustomerEditProfileFragment extends Fragment {
         byte[] imageAsBytes = Base64.decode(b64.getBytes(), Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
     }
-
-
 }
