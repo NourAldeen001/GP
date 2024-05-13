@@ -21,6 +21,7 @@ import com.mastercoding.gp.customer.data.GetProgressConfirmOrderResponse;
 import com.mastercoding.gp.customer.data.OrderList;
 import com.mastercoding.gp.customer.data.Package;
 import com.mastercoding.gp.customer.data.Service;
+import com.mastercoding.gp.parkingworker.data.ParkingWorkerActiveStatus;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerCheckoutBody;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerCheckoutResponse;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerData;
@@ -148,6 +149,9 @@ public interface ApiService {
 
     @GET("workers/get-getCapacity-of-branch/{id}")
     Call<ParkingWorkerGetCapacityResponse> parkingWorkerGetCapacityOfBranch(@Path("id") int workerId, @Header("Authorization") String authHeader);
+
+    @PUT("workers/change-worker-status/{id}")
+    Call<ParkingWorkerActiveStatus> parkingWorkerChangeWorkerStatus(@Path("id") int workerId, @Header("Authorization") String authHeader);
 
 
 

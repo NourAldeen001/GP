@@ -5,4 +5,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#7CE61F</color>
     <color name="blue">#1FB1E6</color>
+    <color name="unchecked_thumb">#8c8c8c</color>
+    <color name="checked_thumb">@color/colorPrimary</color>
+    <color name="unchecked_track">@color/black</color>
+    <color name="checked_track">@color/black</color>
 </resources>
