@@ -33,6 +33,7 @@ import com.mastercoding.gp.parkingworker.data.ParkingWorkerProfileBody;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerProfileData;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerRecordBody;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerRecordResponse;
+import com.mastercoding.gp.shareddata.Notification;
 
 
 import java.util.List;
@@ -153,6 +154,12 @@ public interface ApiService {
     @PUT("workers/change-worker-status/{id}")
     Call<ParkingWorkerActiveStatus> parkingWorkerChangeWorkerStatus(@Path("id") int workerId, @Header("Authorization") String authHeader);
 
+
+
+    // Notifications
+
+    @GET("notifications/get-all-notification-by-userId/{id}")
+    Call<List<Notification>> getAllNotificationsByUserId(@Path("id") int userId, @Header("Authorization") String authHeader);
 
 
 }
