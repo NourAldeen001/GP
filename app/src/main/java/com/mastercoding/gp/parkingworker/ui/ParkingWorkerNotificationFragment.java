@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.mastercoding.gp.R;
 import com.mastercoding.gp.SessionSharedPreferences;
+import com.mastercoding.gp.customer.ui.MaintenanceServicesFragmentDirections;
 import com.mastercoding.gp.databinding.FragmentParkingWorkerNotificationBinding;
 import com.mastercoding.gp.shareddata.Notification;
 import com.mastercoding.gp.shareddata.adapter.NotificationsAdapter;
@@ -71,7 +72,7 @@ public class ParkingWorkerNotificationFragment extends Fragment implements Notif
         binding.parkingWorkerNotificationsClearBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+
             }
         });
 
@@ -82,6 +83,13 @@ public class ParkingWorkerNotificationFragment extends Fragment implements Notif
         return binding.getRoot();
     }
 
+    private void navigateToParkingWorkerNotificationDetailsFragment(int notificationId) {
+        // Use Safe Args to pass data to another fragment
+        ParkingWorkerNotificationFragmentDirections.ActionParkingWorkerNotificationFragmentToParkingWorkerNotificationDetailsFragment action =
+                ParkingWorkerNotificationFragmentDirections.actionParkingWorkerNotificationFragmentToParkingWorkerNotificationDetailsFragment(notificationId);
+        Navigation.findNavController(requireView()).navigate(action);
+    }
+
     @Override
     public void OnNotificationDeleteItemClick(int notificationId) {
 
@@ -89,6 +97,6 @@ public class ParkingWorkerNotificationFragment extends Fragment implements Notif
 
     @Override
     public void OnNotificationItemClick(int notificationId) {
-
+        navigateToParkingWorkerNotificationDetailsFragment(notificationId);
     }
 }

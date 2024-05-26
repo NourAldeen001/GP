@@ -161,5 +161,8 @@ public interface ApiService {
     @GET("notifications/get-all-notification-by-userId/{id}")
     Call<List<Notification>> getAllNotificationsByUserId(@Path("id") int userId, @Header("Authorization") String authHeader);
 
+    @GET("notifications/get-by-id/{id}")
+    Call<Notification> getNotificationById(@Path("id") int notificationId, @Header("Authorization") String authHeader);
+
 
 }

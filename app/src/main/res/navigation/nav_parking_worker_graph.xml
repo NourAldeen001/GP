@@ -48,7 +48,11 @@
         android:id="@+id/parkingWorkerNotificationFragment"
         android:name="com.mastercoding.gp.parkingworker.ui.ParkingWorkerNotificationFragment"
         android:label="fragment_parking_worker_notification"
-        tools:layout="@layout/fragment_parking_worker_notification" />
+        tools:layout="@layout/fragment_parking_worker_notification" >
+        <action
+            android:id="@+id/action_parkingWorkerNotificationFragment_to_parkingWorkerNotificationDetailsFragment"
+            app:destination="@id/parkingWorkerNotificationDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/parkingWorkerAvailablityFragment"
         android:name="com.mastercoding.gp.parkingworker.ui.ParkingWorkerAvailablityFragment"
@@ -64,4 +68,13 @@
         android:name="com.mastercoding.gp.parkingworker.ui.ParkingWorkerEditProfileFragment"
         android:label="fragment_parking_worker_edit_profile"
         tools:layout="@layout/fragment_parking_worker_edit_profile"/>
+    <fragment
+        android:id="@+id/parkingWorkerNotificationDetailsFragment"
+        android:name="com.mastercoding.gp.parkingworker.ui.ParkingWorkerNotificationDetailsFragment"
+        android:label="fragment_parking_worker_notification_details"
+        tools:layout="@layout/fragment_parking_worker_notification_details">
+        <argument
+            android:name="notificationId"
+            app:argType="integer"/>
+    </fragment>
 </navigation>
