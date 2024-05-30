@@ -1,4 +1,4 @@
-package com.mastercoding.gp.parkingworker.ui;
+package com.mastercoding.gp.cleaningworker.ui;
 
 import android.os.Bundle;
 
@@ -16,15 +16,15 @@ import android.widget.CompoundButton;
 import com.mastercoding.gp.CustomDialogFragment;
 import com.mastercoding.gp.R;
 import com.mastercoding.gp.SessionSharedPreferences;
-import com.mastercoding.gp.databinding.FragmentParkingWorkerAvailablityBinding;
+import com.mastercoding.gp.databinding.FragmentCleaningWorkerAvailablityBinding;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerData;
 import com.mastercoding.gp.parkingworker.ui.viewmodel.GetParkingWorkerByIdViewModel;
 import com.mastercoding.gp.parkingworker.ui.viewmodel.ParkingWorkerChangeWorkerStatusViewModel;
 
 
-public class ParkingWorkerAvailablityFragment extends Fragment {
+public class CleaningWorkerAvailablityFragment extends Fragment {
 
-    FragmentParkingWorkerAvailablityBinding binding;
+    FragmentCleaningWorkerAvailablityBinding binding;
 
     GetParkingWorkerByIdViewModel parkingWorkerByIdViewModel;
 
@@ -32,27 +32,25 @@ public class ParkingWorkerAvailablityFragment extends Fragment {
 
     SessionSharedPreferences sessionSharedPreferences;
 
-    CustomDialogFragment dialogFragment;
-
     String userName, password, base, authHeader;
 
-    public ParkingWorkerAvailablityFragment() {
+    public CleaningWorkerAvailablityFragment() {
         // Required empty public constructor
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentParkingWorkerAvailablityBinding.inflate(inflater, container, false);
+        binding = FragmentCleaningWorkerAvailablityBinding.inflate(inflater, container, false);
 
         sessionSharedPreferences = new SessionSharedPreferences(getContext());
 
         parkingWorkerByIdViewModel = new ViewModelProvider(this).get(GetParkingWorkerByIdViewModel.class);
 
         parkingWorkerChangeWorkerStatusViewModel = new ViewModelProvider(this).get(ParkingWorkerChangeWorkerStatusViewModel.class);
-
-        dialogFragment = new CustomDialogFragment();
 
         userName = sessionSharedPreferences.getUsername();
         password = sessionSharedPreferences.getPass();
@@ -66,24 +64,24 @@ public class ParkingWorkerAvailablityFragment extends Fragment {
             public void onChanged(ParkingWorkerData parkingWorkerData) {
                 switch (parkingWorkerData.getWorkerStatus()) {
                     case "AVAILABLE":
-                        binding.parkingWorkerAvailabilitySwitch.setChecked(true);
+                        binding.cleaningWorkerAvailabilitySwitch.setChecked(true);
                         break;
                     case "UN_AVAILABLE":
-                        binding.parkingWorkerAvailabilitySwitch.setChecked(false);
+                        binding.cleaningWorkerAvailabilitySwitch.setChecked(false);
                         break;
                 }
             }
         });
 
 
-        binding.parkingWorkerAvailabilitySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.cleaningWorkerAvailabilitySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 parkingWorkerChangeWorkerStatusViewModel.parkingWorkerChangeWorkerStatus(sessionSharedPreferences.getID(), authHeader);
             }
         });
 
-        binding.parkingWorkerActiveStatusBackBtn.setOnClickListener(new View.OnClickListener() {
+        binding.cleaningWorkerActiveStatusBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).popBackStack();

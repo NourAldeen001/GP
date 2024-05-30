@@ -7,10 +7,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/service_detail_back"
-        tools:context=".parkingworker.ui.ParkingWorkerAvailablityFragment">
+        tools:context=".cleaningworker.ui.CleaningWorkerAvailablityFragment">
 
         <ImageButton
-            android:id="@+id/parking_worker_active_status_back_btn"
+            android:id="@+id/cleaning_worker_active_status_back_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="43dp"
@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/parking_worker_active_status_title_txt"
+            android:id="@+id/cleaning_worker_active_status_title_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -33,17 +33,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <RelativeLayout
-            android:id="@+id/parking_worker_availability_relativeLayout"
+            android:id="@+id/cleaning_worker_availability_relativeLayout"
             android:layout_width="375dp"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text_back_2"
             android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/parking_worker_active_status_title_txt">
+            app:layout_constraintTop_toBottomOf="@+id/cleaning_worker_active_status_title_txt">
 
             <TextView
-                android:id="@+id/parking_worker_availability_fixed_title"
+                android:id="@+id/cleaning_worker_availability_fixed_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -53,7 +53,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/parking_worker_availability_switch"
+                android:id="@+id/cleaning_worker_availability_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="17dp"

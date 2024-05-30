@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_cleaning_worker_graph"
+    app:startDestination="@id/cleaningWorkerHomeFragment">
+
+    <fragment
+        android:id="@+id/cleaningWorkerHomeFragment"
+        android:name="com.mastercoding.gp.cleaningworker.ui.CleaningWorkerHomeFragment"
+        android:label="fragment_cleaning_worker_home"
+        tools:layout="@layout/fragment_cleaning_worker_home" >
+        <action
+            android:id="@+id/action_cleaningWorkerHomeFragment_to_cleaningWorkerNotificationFragment"
+            app:destination="@id/cleaningWorkerNotificationFragment" />
+        <action
+            android:id="@+id/action_cleaningWorkerHomeFragment_to_cleaningWorkerTermsFragment"
+            app:destination="@id/cleaningWorkerTermsFragment" />
+        <action
+            android:id="@+id/action_cleaningWorkerHomeFragment_to_cleaningWorkerAvailablityFragment"
+            app:destination="@id/cleaningWorkerAvailablityFragment" />
+        <action
+            android:id="@+id/action_cleaningWorkerHomeFragment_to_cleaningWorkerProfileFragment"
+            app:destination="@id/cleaningWorkerProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cleaningWorkerNotificationFragment"
+        android:name="com.mastercoding.gp.cleaningworker.ui.CleaningWorkerNotificationFragment"
+        android:label="fragment_cleaning_worker_notification"
+        tools:layout="@layout/fragment_cleaning_worker_notification" >
+        <action
+            android:id="@+id/action_cleaningWorkerNotificationFragment_to_cleaningWorkerNotificationDetailsFragment"
+            app:destination="@id/cleaningWorkerNotificationDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cleaningWorkerNotificationDetailsFragment"
+        android:name="com.mastercoding.gp.cleaningworker.ui.CleaningWorkerNotificationDetailsFragment"
+        android:label="fragment_cleaning_worker_notification_details"
+        tools:layout="@layout/fragment_cleaning_worker_notification_details">
+        <argument
+            android:name="notificationId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/cleaningWorkerTermsFragment"
+        android:name="com.mastercoding.gp.cleaningworker.ui.CleaningWorkerTermsFragment"
+        android:label="fragment_cleaning_worker_terms"
+        tools:layout="@layout/fragment_cleaning_worker_terms" />
+    <fragment
+        android:id="@+id/cleaningWorkerAvailablityFragment"
+        android:name="com.mastercoding.gp.cleaningworker.ui.CleaningWorkerAvailablityFragment"
+        android:label="fragment_cleaning_worker_availablity"
+        tools:layout="@layout/fragment_cleaning_worker_availablity" />
+    <fragment
+        android:id="@+id/cleaningWorkerProfileFragment"
+        android:name="com.mastercoding.gp.cleaningworker.ui.CleaningWorkerProfileFragment"
+        android:label="fragment_cleaning_worker_profile"
+        tools:layout="@layout/fragment_cleaning_worker_profile" >
+        <action
+            android:id="@+id/action_cleaningWorkerProfileFragment_to_cleaningWorkerEdirProfileFragment"
+            app:destination="@id/cleaningWorkerEditProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cleaningWorkerEditProfileFragment"
+        android:name="com.mastercoding.gp.cleaningworker.ui.CleaningWorkerEditProfileFragment"
+        android:label="fragment_cleaning_worker_edit_profile"
+        tools:layout="@layout/fragment_cleaning_worker_edit_profile" />
+</navigation>
