@@ -1,4 +1,4 @@
-package com.mastercoding.gp.shareddata;
+package com.mastercoding.gp.shareddata.data;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

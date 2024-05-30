@@ -12,10 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mastercoding.gp.R;
 import com.mastercoding.gp.SessionSharedPreferences;
 import com.mastercoding.gp.databinding.FragmentParkingWorkerNotificationDetailsBinding;
-import com.mastercoding.gp.shareddata.Notification;
+import com.mastercoding.gp.shareddata.data.Notification;
 import com.mastercoding.gp.shareddata.viewmodel.GetNotificationByIdViewModel;
 
 public class ParkingWorkerNotificationDetailsFragment extends Fragment {

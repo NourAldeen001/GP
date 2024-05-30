@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.mastercoding.gp.api.ApiService;
 import com.mastercoding.gp.api.RetrofitInstance;
-import com.mastercoding.gp.shareddata.Notification;
+import com.mastercoding.gp.shareddata.data.Notification;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class GetAllNotificationByUserIdRepository {
 
             @Override
             public void onFailure(Call<List<Notification>> call, Throwable t) {
-                Log.i("GetAllNotifications", "Fail2");
+                Log.i("GetAllNotifications", "Fail2 : " + t.getCause());
             }
         });
 

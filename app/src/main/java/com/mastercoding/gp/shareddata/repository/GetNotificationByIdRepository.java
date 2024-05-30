@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.mastercoding.gp.api.ApiService;
 import com.mastercoding.gp.api.RetrofitInstance;
-import com.mastercoding.gp.shareddata.Notification;
+import com.mastercoding.gp.shareddata.data.Notification;
 
 import retrofit2.Call;
 import retrofit2.Callback;

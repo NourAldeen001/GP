@@ -13,12 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mastercoding.gp.R;
+import com.mastercoding.gp.CustomDialogFragment;
 import com.mastercoding.gp.SessionSharedPreferences;
-import com.mastercoding.gp.customer.ui.MaintenanceServicesFragmentDirections;
 import com.mastercoding.gp.databinding.FragmentParkingWorkerNotificationBinding;
-import com.mastercoding.gp.shareddata.Notification;
+import com.mastercoding.gp.shareddata.data.Notification;
 import com.mastercoding.gp.shareddata.adapter.NotificationsAdapter;
+import com.mastercoding.gp.shareddata.viewmodel.DeleteAllNotificationsByUserIdViewModel;
+import com.mastercoding.gp.shareddata.viewmodel.DeleteNotificationByIdViewModel;
 import com.mastercoding.gp.shareddata.viewmodel.GetAllNotificationByUserIdViewModel;
 
 import java.util.List;
@@ -30,9 +31,15 @@ public class ParkingWorkerNotificationFragment extends Fragment implements Notif
 
     GetAllNotificationByUserIdViewModel getAllNotificationByUserIdViewModel;
 
+    DeleteNotificationByIdViewModel deleteNotificationByIdViewModel;
+
+    DeleteAllNotificationsByUserIdViewModel deleteAllNotificationsByUserIdViewModel;
+
     NotificationsAdapter notificationsAdapter;
 
     SessionSharedPreferences sessionSharedPreferences;
+
+    CustomDialogFragment deleteDialogFragment, deleteAllDialogFragment;
 
     String userName, password, base, authHeader;
 
@@ -50,6 +57,13 @@ public class ParkingWorkerNotificationFragment extends Fragment implements Notif
         sessionSharedPreferences = new SessionSharedPreferences(getContext());
 
         getAllNotificationByUserIdViewModel = new ViewModelProvider(this).get(GetAllNotificationByUserIdViewModel.class);
+
+        deleteNotificationByIdViewModel = new ViewModelProvider(this).get(DeleteNotificationByIdViewModel.class);
+
+        deleteAllNotificationsByUserIdViewModel = new ViewModelProvider(this).get(DeleteAllNotificationsByUserIdViewModel.class);
+
+        deleteDialogFragment = new CustomDialogFragment();
+        deleteAllDialogFragment = new CustomDialogFragment();
 
         userName = sessionSharedPreferences.getUsername();
         password = sessionSharedPreferences.getPass();
@@ -69,10 +83,31 @@ public class ParkingWorkerNotificationFragment extends Fragment implements Notif
         });
 
 
+        deleteNotificationByIdViewModel.deleteNotificationStatus().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String message) {
+                if (deleteDialogFragment != null && deleteDialogFragment.isAdded()) {
+                    deleteDialogFragment.updateMessage(message);
+                }
+            }
+        });
+
+
         binding.parkingWorkerNotificationsClearBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                deleteAllDialogFragment.show(getChildFragmentManager(), "Delete All Dialog");
+                deleteAllNotificationsByUserIdViewModel.deleteAllNotificationsByUserId(sessionSharedPreferences.getID(), authHeader);
+                refreshNotification();
+            }
+        });
 
+        deleteAllNotificationsByUserIdViewModel.deleteAllNotificationsStatus().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String message) {
+                if (deleteAllDialogFragment != null && deleteAllDialogFragment.isAdded()) {
+                    deleteAllDialogFragment.updateMessage(message);
+                }
             }
         });
 
@@ -92,11 +127,25 @@ public class ParkingWorkerNotificationFragment extends Fragment implements Notif
 
     @Override
     public void OnNotificationDeleteItemClick(int notificationId) {
-
+        deleteDialogFragment.show(getChildFragmentManager(), "Delete Dialog");
+        deleteNotificationByIdViewModel.deleteNotificationById(notificationId, authHeader);
+        refreshNotification();
     }
 
     @Override
     public void OnNotificationItemClick(int notificationId) {
         navigateToParkingWorkerNotificationDetailsFragment(notificationId);
+    }
+
+    public void refreshNotification(){
+        getAllNotificationByUserIdViewModel.getAllNotificationByUserId(sessionSharedPreferences.getID(), authHeader).observe(getViewLifecycleOwner(), new Observer<List<Notification>>() {
+            @Override
+            public void onChanged(List<Notification> notifications) {
+                notificationsAdapter = new NotificationsAdapter(notifications);
+                notificationsAdapter.setOnNotificationItemClickListener(ParkingWorkerNotificationFragment.this);
+                binding.parkingWorkerNotificationsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+                binding.parkingWorkerNotificationsRecyclerView.setAdapter(notificationsAdapter);
+            }
+        });
     }
 }

@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mastercoding.gp.R;
-import com.mastercoding.gp.shareddata.Notification;
+import com.mastercoding.gp.shareddata.data.Notification;
 
 import java.util.List;
 

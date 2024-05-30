@@ -33,7 +33,8 @@ import com.mastercoding.gp.parkingworker.data.ParkingWorkerProfileBody;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerProfileData;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerRecordBody;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerRecordResponse;
-import com.mastercoding.gp.shareddata.Notification;
+import com.mastercoding.gp.shareddata.data.DeleteNotificationResponse;
+import com.mastercoding.gp.shareddata.data.Notification;
 
 
 import java.util.List;
@@ -163,6 +164,12 @@ public interface ApiService {
 
     @GET("notifications/get-by-id/{id}")
     Call<Notification> getNotificationById(@Path("id") int notificationId, @Header("Authorization") String authHeader);
+
+    @DELETE("notifications/delete/{id}")
+    Call<DeleteNotificationResponse> deleteNotificationById(@Path("id") int notificationId, @Header("Authorization") String authHeader);
+
+    @DELETE("notifications/delete-all-by-user-id/{id}")
+    Call<DeleteNotificationResponse> deleteAllNotificationsByUserId(@Path("id") int userId, @Header("Authorization") String authHeader);
 
 
 }
