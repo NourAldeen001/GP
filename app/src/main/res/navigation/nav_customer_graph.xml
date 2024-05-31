@@ -80,7 +80,11 @@
         android:id="@+id/customerNotificationFragment"
         android:name="com.mastercoding.gp.customer.ui.CustomerNotificationFragment"
         android:label="fragment_customer_notification"
-        tools:layout="@layout/fragment_customer_notification" />
+        tools:layout="@layout/fragment_customer_notification" >
+        <action
+            android:id="@+id/action_customerNotificationFragment_to_customerNotificationDetailsFragment"
+            app:destination="@id/customerNotificationDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/maintenanceServicesFragment"
         android:name="com.mastercoding.gp.customer.ui.MaintenanceServicesFragment"
@@ -151,4 +155,13 @@
         android:name="com.mastercoding.gp.customer.ui.EmptyCartFragment"
         android:label="fragment_empty_cart"
         tools:layout="@layout/fragment_empty_cart"/>
+    <fragment
+        android:id="@+id/customerNotificationDetailsFragment"
+        android:name="com.mastercoding.gp.customer.ui.CustomerNotificationDetailsFragment"
+        android:label="fragment_customer_notification_details"
+        tools:layout="@layout/fragment_customer_notification_details">
+        <argument
+            android:name="notificationId"
+            app:argType="integer"/>
+    </fragment>
 </navigation>

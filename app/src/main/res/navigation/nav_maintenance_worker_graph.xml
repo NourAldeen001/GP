@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_maintenance_worker_graph"
+    app:startDestination="@id/maintenanceWorkerHomeFragment">
+
+    <fragment
+        android:id="@+id/maintenanceWorkerHomeFragment"
+        android:name="com.mastercoding.gp.maintenanceworker.ui.MaintenanceWorkerHomeFragment"
+        android:label="fragment_maintenance_worker_home"
+        tools:layout="@layout/fragment_maintenance_worker_home" >
+        <action
+            android:id="@+id/action_maintenanceWorkerHomeFragment_to_maintenanceWorkerAvailablityFragment"
+            app:destination="@id/maintenanceWorkerAvailablityFragment" />
+        <action
+            android:id="@+id/action_maintenanceWorkerHomeFragment_to_maintenanceWorkerProfileFragment"
+            app:destination="@id/maintenanceWorkerProfileFragment" />
+        <action
+            android:id="@+id/action_maintenanceWorkerHomeFragment_to_maintenanceWorkerNotificationFragment"
+            app:destination="@id/maintenanceWorkerNotificationFragment" />
+        <action
+            android:id="@+id/action_maintenanceWorkerHomeFragment_to_maintenanceWorkerTermsFragment"
+            app:destination="@id/maintenanceWorkerTermsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/maintenanceWorkerAvailablityFragment"
+        android:name="com.mastercoding.gp.maintenanceworker.ui.MaintenanceWorkerAvailablityFragment"
+        android:label="fragment_maintenance_worker_availablity"
+        tools:layout="@layout/fragment_maintenance_worker_availablity" />
+    <fragment
+        android:id="@+id/maintenanceWorkerEditProfileFragment"
+        android:name="com.mastercoding.gp.maintenanceworker.ui.MaintenanceWorkerEditProfileFragment"
+        android:label="fragment_maintenance_worker_edit_profile"
+        tools:layout="@layout/fragment_maintenance_worker_edit_profile" />
+    <fragment
+        android:id="@+id/maintenanceWorkerProfileFragment"
+        android:name="com.mastercoding.gp.maintenanceworker.ui.MaintenanceWorkerProfileFragment"
+        android:label="fragment_maintenance_worker_profile"
+        tools:layout="@layout/fragment_maintenance_worker_profile" >
+        <action
+            android:id="@+id/action_maintenanceWorkerProfileFragment_to_maintenanceWorkerEditProfileFragment"
+            app:destination="@id/maintenanceWorkerEditProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/maintenanceWorkerNotificationFragment"
+        android:name="com.mastercoding.gp.maintenanceworker.ui.MaintenanceWorkerNotificationFragment"
+        android:label="fragment_maintenance_worker_notification"
+        tools:layout="@layout/fragment_maintenance_worker_notification" >
+        <action
+            android:id="@+id/action_maintenanceWorkerNotificationFragment_to_maintenanceWorkerNotificationDetailsFragment"
+            app:destination="@id/maintenanceWorkerNotificationDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/maintenanceWorkerNotificationDetailsFragment"
+        android:name="com.mastercoding.gp.maintenanceworker.ui.MaintenanceWorkerNotificationDetailsFragment"
+        android:label="fragment_maintenance_worker_notification_details"
+        tools:layout="@layout/fragment_maintenance_worker_notification_details">
+        <argument
+            android:name="notificationId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/maintenanceWorkerTermsFragment"
+        android:name="com.mastercoding.gp.maintenanceworker.ui.MaintenanceWorkerTermsFragment"
+        android:label="fragment_maintenance_worker_terms"
+        tools:layout="@layout/fragment_maintenance_worker_terms" />
+</navigation>

@@ -1,4 +1,4 @@
-package com.mastercoding.gp.cleaningworker.ui;
+package com.mastercoding.gp.maintenanceworker.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,14 +16,14 @@ import android.view.ViewGroup;
 
 import com.mastercoding.gp.R;
 import com.mastercoding.gp.SessionSharedPreferences;
-import com.mastercoding.gp.databinding.FragmentCleaningWorkerProfileBinding;
+import com.mastercoding.gp.databinding.FragmentMaintenanceWorkerProfileBinding;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerData;
 import com.mastercoding.gp.parkingworker.ui.viewmodel.GetParkingWorkerByIdViewModel;
 
 
-public class CleaningWorkerProfileFragment extends Fragment {
+public class MaintenanceWorkerProfileFragment extends Fragment {
 
-    FragmentCleaningWorkerProfileBinding binding;
+    FragmentMaintenanceWorkerProfileBinding binding;
 
     GetParkingWorkerByIdViewModel parkingWorkerByIdViewModel;
 
@@ -31,7 +31,7 @@ public class CleaningWorkerProfileFragment extends Fragment {
 
     String userName, password, base, authHeader;
 
-    public CleaningWorkerProfileFragment() {
+    public MaintenanceWorkerProfileFragment() {
         // Required empty public constructor
     }
 
@@ -39,7 +39,7 @@ public class CleaningWorkerProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentCleaningWorkerProfileBinding.inflate(inflater, container, false);
+        binding = FragmentMaintenanceWorkerProfileBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(this);
 
         sessionSharedPreferences = new SessionSharedPreferences(getContext());
@@ -58,29 +58,29 @@ public class CleaningWorkerProfileFragment extends Fragment {
             public void onChanged(ParkingWorkerData parkingWorkerData) {
                 if(parkingWorkerData.getImage() != null){
                     Bitmap imgBitmap = convertBase64ToBitmap(parkingWorkerData.getImage());
-                    binding.cleaningWorkerProfileImg.setImageBitmap(imgBitmap);
+                    binding.maintenanceWorkerProfileImg.setImageBitmap(imgBitmap);
                 }
-                binding.cleaningWorkerFullNameTxt.setText(String.format("%s %s", parkingWorkerData.getFirstName(), parkingWorkerData.getLastName()));
-                binding.cleaningWorkerUserNameTxt.setText(userName);
-                binding.cleaningWorkerFirstNameTxt.setText(parkingWorkerData.getFirstName());
-                binding.cleaningWorkerLastNameTxt.setText(parkingWorkerData.getLastName());
-                binding.cleaningWorkerPassTxt.setText(parkingWorkerData.getPassword());
-                binding.cleaningWorkerGenderTxt.setText(parkingWorkerData.getGender());
-                binding.cleaningWorkerPhoneTxt.setText(parkingWorkerData.getPhoneNumber());
-                binding.cleaningWorkerEmailTxt.setText(parkingWorkerData.getEmail());
-                binding.cleaningWorkerBirthTxt.setText(parkingWorkerData.getBirthday());
+                binding.maintenanceWorkerFullNameTxt.setText(String.format("%s %s", parkingWorkerData.getFirstName(), parkingWorkerData.getLastName()));
+                binding.maintenanceWorkerUserNameTxt.setText(userName);
+                binding.maintenanceWorkerFirstNameTxt.setText(parkingWorkerData.getFirstName());
+                binding.maintenanceWorkerLastNameTxt.setText(parkingWorkerData.getLastName());
+                binding.maintenanceWorkerPassTxt.setText(parkingWorkerData.getPassword());
+                binding.maintenanceWorkerGenderTxt.setText(parkingWorkerData.getGender());
+                binding.maintenanceWorkerPhoneTxt.setText(parkingWorkerData.getPhoneNumber());
+                binding.maintenanceWorkerEmailTxt.setText(parkingWorkerData.getEmail());
+                binding.maintenanceWorkerBirthTxt.setText(parkingWorkerData.getBirthday());
             }
         });
 
-        binding.cleaningWorkerProfileEditBtn.setOnClickListener(new View.OnClickListener() {
+        binding.maintenanceWorkerProfileEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.cleaningWorkerEditProfileFragment);
+                Navigation.findNavController(view).navigate(R.id.maintenanceWorkerEditProfileFragment);
             }
         });
 
 
-        binding.cleaningWorkerProfileBackBtn.setOnClickListener(new View.OnClickListener() {
+        binding.maintenanceWorkerProfileBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).popBackStack();

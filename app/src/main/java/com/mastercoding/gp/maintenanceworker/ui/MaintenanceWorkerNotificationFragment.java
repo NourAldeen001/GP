@@ -1,4 +1,4 @@
-package com.mastercoding.gp.cleaningworker.ui;
+package com.mastercoding.gp.maintenanceworker.ui;
 
 import android.os.Bundle;
 
@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import com.mastercoding.gp.CustomDialogFragment;
 import com.mastercoding.gp.SessionSharedPreferences;
-import com.mastercoding.gp.databinding.FragmentCleaningWorkerNotificationBinding;
+import com.mastercoding.gp.databinding.FragmentMaintenanceWorkerNotificationBinding;
 import com.mastercoding.gp.shareddata.adapter.NotificationsAdapter;
 import com.mastercoding.gp.shareddata.data.Notification;
 import com.mastercoding.gp.shareddata.viewmodel.DeleteAllNotificationsByUserIdViewModel;
@@ -25,25 +25,25 @@ import com.mastercoding.gp.shareddata.viewmodel.GetAllNotificationByUserIdViewMo
 import java.util.List;
 
 
-public class CleaningWorkerNotificationFragment extends Fragment implements NotificationsAdapter.OnNotificationItemClickListener {
+public class MaintenanceWorkerNotificationFragment extends Fragment implements NotificationsAdapter.OnNotificationItemClickListener {
 
-   FragmentCleaningWorkerNotificationBinding binding;
+    FragmentMaintenanceWorkerNotificationBinding binding;
 
-   GetAllNotificationByUserIdViewModel getAllNotificationByUserIdViewModel;
+    GetAllNotificationByUserIdViewModel getAllNotificationByUserIdViewModel;
 
-   DeleteNotificationByIdViewModel deleteNotificationByIdViewModel;
+    DeleteNotificationByIdViewModel deleteNotificationByIdViewModel;
 
-   DeleteAllNotificationsByUserIdViewModel deleteAllNotificationsByUserIdViewModel;
+    DeleteAllNotificationsByUserIdViewModel deleteAllNotificationsByUserIdViewModel;
 
-   NotificationsAdapter notificationsAdapter;
+    NotificationsAdapter notificationsAdapter;
 
-   SessionSharedPreferences sessionSharedPreferences;
+    SessionSharedPreferences sessionSharedPreferences;
 
-   CustomDialogFragment deleteDialogFragment, deleteAllDialogFragment;
+    CustomDialogFragment deleteDialogFragment, deleteAllDialogFragment;
 
-   String userName, password, base, authHeader;
+    String userName, password, base, authHeader;
 
-    public CleaningWorkerNotificationFragment() {
+    public MaintenanceWorkerNotificationFragment() {
         // Required empty public constructor
     }
 
@@ -52,7 +52,7 @@ public class CleaningWorkerNotificationFragment extends Fragment implements Noti
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentCleaningWorkerNotificationBinding.inflate(inflater, container, false);
+        binding = FragmentMaintenanceWorkerNotificationBinding.inflate(inflater, container, false);
 
         sessionSharedPreferences = new SessionSharedPreferences(getContext());
 
@@ -76,9 +76,9 @@ public class CleaningWorkerNotificationFragment extends Fragment implements Noti
             @Override
             public void onChanged(List<Notification> notifications) {
                 notificationsAdapter = new NotificationsAdapter(notifications);
-                notificationsAdapter.setOnNotificationItemClickListener(CleaningWorkerNotificationFragment.this);
-                binding.cleaningWorkerNotificationsRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext(), LinearLayoutManager.VERTICAL, false));
-                binding.cleaningWorkerNotificationsRecyclerView.setAdapter(notificationsAdapter);
+                notificationsAdapter.setOnNotificationItemClickListener(MaintenanceWorkerNotificationFragment.this);
+                binding.maintenanceWorkerNotificationsRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext(), LinearLayoutManager.VERTICAL, false));
+                binding.maintenanceWorkerNotificationsRecyclerView.setAdapter(notificationsAdapter);
             }
         });
 
@@ -93,7 +93,7 @@ public class CleaningWorkerNotificationFragment extends Fragment implements Noti
         });
 
 
-        binding.cleaningWorkerNotificationsClearBtn.setOnClickListener(new View.OnClickListener() {
+        binding.maintenanceWorkerNotificationsClearBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 deleteAllDialogFragment.show(getChildFragmentManager(), "Delete All Dialog");
@@ -111,17 +111,17 @@ public class CleaningWorkerNotificationFragment extends Fragment implements Noti
             }
         });
 
-        binding.cleaningWorkerNotificationsBackBtn.setOnClickListener(view -> {
+        binding.maintenanceWorkerNotificationsBackBtn.setOnClickListener(view -> {
             Navigation.findNavController(view).popBackStack();
         });
 
         return binding.getRoot();
     }
 
-    private void navigateToCleaningWorkerNotificationDetailsFragment(int notificationId) {
+    private void navigateToMaintenanceWorkerNotificationDetailsFragment(int notificationId) {
         // Use Safe Args to pass data to another fragment
-        CleaningWorkerNotificationFragmentDirections.ActionCleaningWorkerNotificationFragmentToCleaningWorkerNotificationDetailsFragment action =
-                CleaningWorkerNotificationFragmentDirections.actionCleaningWorkerNotificationFragmentToCleaningWorkerNotificationDetailsFragment(notificationId);
+        MaintenanceWorkerNotificationFragmentDirections.ActionMaintenanceWorkerNotificationFragmentToMaintenanceWorkerNotificationDetailsFragment action =
+                MaintenanceWorkerNotificationFragmentDirections.actionMaintenanceWorkerNotificationFragmentToMaintenanceWorkerNotificationDetailsFragment(notificationId);
         Navigation.findNavController(requireView()).navigate(action);
     }
 
@@ -134,7 +134,7 @@ public class CleaningWorkerNotificationFragment extends Fragment implements Noti
 
     @Override
     public void OnNotificationItemClick(int notificationId) {
-        navigateToCleaningWorkerNotificationDetailsFragment(notificationId);
+        navigateToMaintenanceWorkerNotificationDetailsFragment(notificationId);
     }
 
     public void refreshNotification(){
@@ -142,9 +142,9 @@ public class CleaningWorkerNotificationFragment extends Fragment implements Noti
             @Override
             public void onChanged(List<Notification> notifications) {
                 notificationsAdapter = new NotificationsAdapter(notifications);
-                notificationsAdapter.setOnNotificationItemClickListener(CleaningWorkerNotificationFragment.this);
-                binding.cleaningWorkerNotificationsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-                binding.cleaningWorkerNotificationsRecyclerView.setAdapter(notificationsAdapter);
+                notificationsAdapter.setOnNotificationItemClickListener(MaintenanceWorkerNotificationFragment.this);
+                binding.maintenanceWorkerNotificationsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+                binding.maintenanceWorkerNotificationsRecyclerView.setAdapter(notificationsAdapter);
             }
         });
     }
