@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "43417951979",
+    "project_id": "reco-5c13b",
+    "storage_bucket": "reco-5c13b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43417951979:android:7135ac8a361f935c1fa8ae",
+        "android_client_info": {
+          "package_name": "com.mastercoding.firebaseml"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRxBHUzQeV0nngpEfV6HQ6EY4cVM9QJH8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43417951979:android:aa3193615686c9651fa8ae",
+        "android_client_info": {
+          "package_name": "com.mastercoding.gp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRxBHUzQeV0nngpEfV6HQ6EY4cVM9QJH8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
