@@ -171,5 +171,8 @@ public interface ApiService {
     @DELETE("notifications/delete-all-by-user-id/{id}")
     Call<DeleteNotificationResponse> deleteAllNotificationsByUserId(@Path("id") int userId, @Header("Authorization") String authHeader);
 
+    @GET("notifications/get-count-unOpened-by-user-id/{id}")
+    Call<Integer> getCountUnopenedByUserId(@Path("id") int userId, @Header("Authorization") String authHeader);
+
 
 }

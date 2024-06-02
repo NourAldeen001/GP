@@ -28,9 +28,11 @@ import com.mastercoding.gp.R;
 import com.mastercoding.gp.SessionSharedPreferences;
 import com.mastercoding.gp.auth.AuthActivity;
 import com.mastercoding.gp.auth.login.ui.LoginViewModel;
+import com.mastercoding.gp.cleaningworker.CleaningWorkerActivity;
 import com.mastercoding.gp.databinding.ActivityParkingWorkerBinding;
 import com.mastercoding.gp.parkingworker.data.ParkingWorkerData;
 import com.mastercoding.gp.parkingworker.ui.viewmodel.GetParkingWorkerByIdViewModel;
+import com.mastercoding.gp.shareddata.viewmodel.GetCountUnOpenedByUserIdViewModel;
 
 import java.util.Objects;
 
@@ -42,6 +44,7 @@ public class ParkingWorkerActivity extends AppCompatActivity implements Navigati
     LoginViewModel loginViewModel;
 
     GetParkingWorkerByIdViewModel parkingWorkerByIdViewModel;
+    GetCountUnOpenedByUserIdViewModel getCountUnOpenedByUserIdViewModel;
     ActivityParkingWorkerBinding binding;
 
     @Override
@@ -50,6 +53,7 @@ public class ParkingWorkerActivity extends AppCompatActivity implements Navigati
         binding = DataBindingUtil.setContentView(this, R.layout.activity_parking_worker);
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         parkingWorkerByIdViewModel = new ViewModelProvider(this).get(GetParkingWorkerByIdViewModel.class);
+        getCountUnOpenedByUserIdViewModel = new ViewModelProvider(this).get(GetCountUnOpenedByUserIdViewModel.class);
         sessionSharedPreferences = new SessionSharedPreferences(getApplicationContext());
 
         String userName = sessionSharedPreferences.getUsername();
@@ -119,30 +123,51 @@ public class ParkingWorkerActivity extends AppCompatActivity implements Navigati
             }
         });
 
-        profileImage.setOnClickListener(new View.OnClickListener() {
+        profileImage.setOnClickListener(view1 -> {
+            navigateToProfile();
+        });
+
+        MenuItem notificationMenuItem = menu.findItem(R.id.worker_toolbar_notification);
+        View badgeLayout = notificationMenuItem.getActionView();
+
+        ImageView notificationImgBtn = badgeLayout.findViewById(R.id.toolbar_notification_image_btn);
+        TextView badge = badgeLayout.findViewById(R.id.toolbar_notification_badge);
+
+        getCountUnOpenedByUserIdViewModel.getCountUnopenedByUserId(sessionSharedPreferences.getID(), authHeader).observe(this, new Observer<Integer>() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(ParkingWorkerActivity.this, "Profile Clicked", Toast.LENGTH_SHORT).show();
+            public void onChanged(Integer counter) {
+                if(counter > 0){
+                    Log.i("Counter Notifications", "counter : " + String.valueOf(counter));
+                    badge.setText(counter.toString());
+                    badge.setVisibility(View.VISIBLE);
+                }
+                else {
+                    Log.i("Counter Notifications", "counter : " + String.valueOf(counter));
+                    badge.setVisibility(View.GONE);
+                }
             }
         });
+
+        notificationImgBtn.setOnClickListener(view1 -> {
+            navigateToNotifications();
+        });
+
 
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    private void navigateToProfile() {
         NavController navController = Navigation.findNavController(ParkingWorkerActivity.this, R.id.nav_host_fragment_parking_worker);
-        if(item.getItemId() == R.id.worker_toolbar_notification){
-            if(navController.getCurrentDestination().getId() != R.id.parkingWorkerNotificationFragment){
-                navController.navigate(R.id.parkingWorkerNotificationFragment);
-            }
+        if (navController.getCurrentDestination().getId() != R.id.parkingWorkerProfileFragment) {
+            navController.navigate(R.id.parkingWorkerProfileFragment);
         }
-        else if(item.getItemId() == R.id.worker_toolbar_profile){
-            if(navController.getCurrentDestination().getId() != R.id.parkingWorkerProfileFragment){
-                navController.navigate(R.id.parkingWorkerProfileFragment);
-            }
+    }
+
+    private void navigateToNotifications() {
+        NavController navController = Navigation.findNavController(ParkingWorkerActivity.this, R.id.nav_host_fragment_parking_worker);
+        if (navController.getCurrentDestination().getId() != R.id.parkingWorkerNotificationFragment) {
+            navController.navigate(R.id.parkingWorkerNotificationFragment);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -34,9 +34,11 @@ import com.mastercoding.gp.R;
 import com.mastercoding.gp.SessionSharedPreferences;
 import com.mastercoding.gp.auth.AuthActivity;
 import com.mastercoding.gp.auth.login.ui.LoginViewModel;
+import com.mastercoding.gp.cleaningworker.CleaningWorkerActivity;
 import com.mastercoding.gp.customer.data.CustomerData;
 import com.mastercoding.gp.customer.ui.viewmodel.GetCustomerByIdViewModel;
 import com.mastercoding.gp.databinding.ActivityCustomerBinding;
+import com.mastercoding.gp.shareddata.viewmodel.GetCountUnOpenedByUserIdViewModel;
 
 import java.util.Objects;
 
@@ -48,6 +50,7 @@ public class CustomerActivity extends AppCompatActivity implements NavigationVie
     SessionSharedPreferences sessionSharedPreferences;
     LoginViewModel loginViewModel;
     GetCustomerByIdViewModel customerByIdViewModel;
+    GetCountUnOpenedByUserIdViewModel getCountUnOpenedByUserIdViewModel;
     ActivityCustomerBinding binding;
 
     @Override
@@ -56,6 +59,7 @@ public class CustomerActivity extends AppCompatActivity implements NavigationVie
         binding = DataBindingUtil.setContentView(this, R.layout.activity_customer);
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         customerByIdViewModel = new ViewModelProvider(this).get(GetCustomerByIdViewModel.class);
+        getCountUnOpenedByUserIdViewModel = new ViewModelProvider(this).get(GetCountUnOpenedByUserIdViewModel.class);
         sessionSharedPreferences = new SessionSharedPreferences(getApplicationContext());
 
         // Important Data to call Authorization APIs
@@ -167,30 +171,57 @@ public class CustomerActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
-        profileImage.setOnClickListener(new View.OnClickListener() {
+        profileImage.setOnClickListener(view1 -> {
+            navigateToProfile();
+        });
+
+        MenuItem notificationMenuItem = menu.findItem(R.id.toolbar_notification);
+        View badgeLayout = notificationMenuItem.getActionView();
+
+        ImageView notificationImgBtn = badgeLayout.findViewById(R.id.toolbar_notification_image_btn);
+        TextView badge = badgeLayout.findViewById(R.id.toolbar_notification_badge);
+
+        getCountUnOpenedByUserIdViewModel.getCountUnopenedByUserId(sessionSharedPreferences.getID(), authHeader).observe(this, new Observer<Integer>() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(CustomerActivity.this, "Profile Clicked", Toast.LENGTH_SHORT).show();
+            public void onChanged(Integer counter) {
+                if(counter > 0){
+                    Log.i("Counter Notifications", "counter : " + String.valueOf(counter));
+                    badge.setText(counter.toString());
+                    badge.setVisibility(View.VISIBLE);
+                }
+                else {
+                    Log.i("Counter Notifications", "counter : " + String.valueOf(counter));
+                    badge.setVisibility(View.GONE);
+                }
             }
         });
 
+        notificationImgBtn.setOnClickListener(view1 -> {
+            navigateToNotifications();
+        });
+
+
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void navigateToProfile() {
+        NavController navController = Navigation.findNavController(CustomerActivity.this, R.id.nav_host_fragment_customer);
+        if (navController.getCurrentDestination().getId() != R.id.customerProfileFragment) {
+            navController.navigate(R.id.customerProfileFragment);
+        }
+    }
+
+    private void navigateToNotifications() {
+        NavController navController = Navigation.findNavController(CustomerActivity.this, R.id.nav_host_fragment_customer);
+        if (navController.getCurrentDestination().getId() != R.id.customerNotificationFragment) {
+            navController.navigate(R.id.customerNotificationFragment);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         NavController navController = Navigation.findNavController(CustomerActivity.this, R.id.nav_host_fragment_customer);
-        if(item.getItemId() == R.id.toolbar_notification){
-            if(navController.getCurrentDestination().getId() != R.id.customerNotificationFragment){
-                navController.navigate(R.id.customerNotificationFragment);
-            }
-        }
-        else if(item.getItemId() == R.id.toolbar_profile){
-            if(navController.getCurrentDestination().getId() != R.id.customerProfileFragment){
-                navController.navigate(R.id.customerProfileFragment);
-            }
-        }
-        else if(item.getItemId() == R.id.toolbar_cart) {
+        if(item.getItemId() == R.id.toolbar_cart) {
             if(navController.getCurrentDestination().getId() != R.id.cartFragment){
                 navController.navigate(R.id.cartFragment);
             }

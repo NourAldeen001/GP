@@ -4,9 +4,9 @@
 
     <item
         android:id="@+id/worker_toolbar_notification"
-        android:title=""
-        android:icon="@drawable/bell"
-        app:showAsAction="ifRoom"/>
+        android:title="Notifications"
+        app:showAsAction="always"
+        app:actionLayout="@layout/notification_badge_layout"/>
 
     <item
         android:id="@+id/worker_toolbar_profile"
